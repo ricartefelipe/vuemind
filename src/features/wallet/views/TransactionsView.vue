@@ -71,11 +71,11 @@ onMounted(() => {
       </template>
     </ErrorBanner>
     <EmptyState
-      v-else-if="wallet.transactions.length === 0"
+      v-else-if="wallet.transactions !== null && wallet.transactions.length === 0"
       :title="t('wallet.empty.title')"
       :description="t('wallet.empty.description')"
     />
-    <ul v-else class="transactions-view__list">
+    <ul v-else-if="wallet.transactions !== null" class="transactions-view__list">
       <li v-for="transaction in wallet.transactions" :key="transaction.id" class="transactions-view__item">
         <div class="transactions-view__info">
           <span class="transactions-view__description">{{ transaction.description }}</span>
