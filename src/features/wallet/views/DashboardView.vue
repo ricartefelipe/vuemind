@@ -24,7 +24,10 @@ onMounted(() => {
 
 <template>
   <section class="dashboard-view">
-    <LoadingBlock v-if="wallet.balanceLoading" :label="t('common.loading')" />
+    <LoadingBlock
+      v-if="wallet.balanceLoading || (wallet.balanceCents === null && !wallet.balanceError)"
+      :label="t('common.loading')"
+    />
     <ErrorBanner v-else-if="wallet.balanceError" :message="t('common.error')">
       <template #action>
         <AppButton variant="secondary" @click="wallet.loadBalance()">{{ t('common.retry') }}</AppButton>

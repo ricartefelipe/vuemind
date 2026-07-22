@@ -61,7 +61,10 @@ onMounted(() => {
       <AppButton type="submit">{{ t('wallet.filters.apply') }}</AppButton>
     </form>
 
-    <LoadingBlock v-if="wallet.transactionsLoading" :label="t('common.loading')" />
+    <LoadingBlock
+      v-if="wallet.transactionsLoading || (wallet.transactions === null && !wallet.transactionsError)"
+      :label="t('common.loading')"
+    />
     <ErrorBanner v-else-if="wallet.transactionsError" :message="t('common.error')">
       <template #action>
         <AppButton variant="secondary" @click="wallet.loadTransactions()">{{ t('common.retry') }}</AppButton>

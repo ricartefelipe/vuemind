@@ -27,6 +27,7 @@ describe('useWalletStore', () => {
     expect(wallet.balanceCents).toBeNull()
     expect(wallet.balanceLoading).toBe(false)
     expect(wallet.balanceError).toBeNull()
+    expect(wallet.transactions).toBeNull()
   })
 
   it('carrega o saldo via walletApi.getBalance', async () => {

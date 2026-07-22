@@ -26,7 +26,7 @@ export const useWalletStore = defineStore('wallet', () => {
 
   const balanceCents = computed(() => balanceState.data.value?.availableCents ?? null)
   const currency = computed(() => balanceState.data.value?.currency ?? 'BRL')
-  const transactions = computed(() => transactionsState.data.value ?? [])
+  const transactions = computed(() => transactionsState.data.value)
 
   /**
    * `useAsyncState.run` relança o erro para quem chama poder reagir; aqui
