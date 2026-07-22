@@ -1,0 +1,40 @@
+/**
+ * Login mock: só existe UM usuário na "base" (`getDb().user`), então este
+ * handler apenas confere email/senha contra ele. No Spring real isso seria um
+ * `AuthenticationManager` batendo num banco de usuários — a UI (`authApi`,
+ * `authStore`) não precisa saber a diferença, só fala com `/api/v1/auth/login`.
+ */
+import { http, HttpResponse } from 'msw'
+import { getDb } from '@/mocks/data/db'
+import { createCorrelationId } from '@/shared/utils/id'
+import type { ApiErrorBody } from '@/shared/types/api'
+
+type LoginRequestBody = {
+  email: string
+  password: string
+}
+
+/** Token opaco fixo: basta para simular `Authorization: Bearer ...` no client HTTP. */
+const MOCK_TOKEN = 'mock-jwt-demo'
+
+export const authHandlers = [
+  http.post('*/api/v1/auth/login', async ({ request }) => {
+    const correlationId = request.headers.get('X-Correlation-Id') ?? createCorrelationId()
+    const { email, password } = (await request.json()) as LoginRequestBody
+    const db = getDb()
+
+    if (email !== db.user.email || password !== db.user.password) {
+      const error: ApiErrorBody = {
+        code: 'INVALID_CREDENTIALS',
+        message: 'Email ou senha inválidos.',
+        correlationId,
+      }
+      return HttpResponse.json(error, { status: 401 })
+    }
+
+    return HttpResponse.json({
+      accessToken: MOCK_TOKEN,
+      user: { id: db.user.id, name: db.user.name, email: db.user.email },
+    })
+  }),
+]
