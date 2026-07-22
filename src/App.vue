@@ -1,8 +1,7 @@
 <script setup lang="ts">
+import AppShell from '@/shared/ui/AppShell.vue'
 </script>
 
 <template>
-  <main>
-    <h1>VueMind Wallet</h1>
-  </main>
+  <AppShell />
 </template>

@@ -1,19 +1,7 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-  color: #213547;
-  background-color: #ffffff;
-}
-
-body {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-}
+/**
+ * Ponto de entrada único do CSS global: os tokens de tema (variáveis) e o
+ * reset/fontes base vivem em `app/styles`. Mantido em `style.css` só para
+ * não mudar o import já existente em `main.ts`.
+ */
+@import './app/styles/tokens.css';
+@import './app/styles/base.css';
