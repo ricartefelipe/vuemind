@@ -24,6 +24,23 @@ export default {
   wallet: {
     balance: 'Balance',
     transactions: 'Transactions',
+    shortcutsTitle: 'Shortcuts',
+    filters: {
+      from: 'From',
+      to: 'To',
+      type: 'Type',
+      apply: 'Filter',
+    },
+    types: {
+      ALL: 'All',
+      PIX_OUT: 'PIX sent',
+      PIX_IN: 'PIX received',
+      TED: 'Wire transfer',
+    },
+    empty: {
+      title: 'No transactions found',
+      description: 'Adjust the filters or check back later.',
+    },
   },
   transfers: {
     pix: 'PIX transfer',

@@ -24,6 +24,23 @@ export default {
   wallet: {
     balance: 'Saldo',
     transactions: 'Extrato',
+    shortcutsTitle: 'Atalhos',
+    filters: {
+      from: 'De',
+      to: 'Até',
+      type: 'Tipo',
+      apply: 'Filtrar',
+    },
+    types: {
+      ALL: 'Todos',
+      PIX_OUT: 'PIX enviado',
+      PIX_IN: 'PIX recebido',
+      TED: 'TED',
+    },
+    empty: {
+      title: 'Nenhuma transação encontrada',
+      description: 'Ajuste os filtros ou volte mais tarde.',
+    },
   },
   transfers: {
     pix: 'Transferência PIX',

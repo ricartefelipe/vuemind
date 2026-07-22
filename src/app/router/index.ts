@@ -1,9 +1,9 @@
 /**
  * Router completo do app: rotas nomeadas (usadas por `RouterLink`,
  * `router.push({ name })` e pelo guard) e a proteção de autenticação —
- * único lugar que decide quem pode ver o quê. Dashboard, extrato, PIX e
- * favorecidos ainda são placeholders textuais; cada Task seguinte troca
- * só o `component` da rota por uma view real, sem tocar no guard.
+ * único lugar que decide quem pode ver o quê. PIX e favorecidos ainda são
+ * placeholders textuais; cada Task seguinte troca só o `component` da
+ * rota por uma view real, sem tocar no guard.
  */
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 import { defineComponent, h } from 'vue'
@@ -37,13 +37,13 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'dashboard',
-    component: placeholder('nav.dashboard'),
+    component: () => import('@/features/wallet/views/DashboardView.vue'),
     meta: { requiresAuth: true },
   },
   {
     path: '/transactions',
     name: 'transactions',
-    component: placeholder('nav.transactions'),
+    component: () => import('@/features/wallet/views/TransactionsView.vue'),
     meta: { requiresAuth: true },
   },
   {
