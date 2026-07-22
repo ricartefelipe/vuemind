@@ -1,0 +1,7 @@
+/**
+ * Ponto de entrada único do CSS global: os tokens de tema (variáveis) e o
+ * reset/fontes base vivem em `app/styles`. Mantido em `style.css` só para
+ * não mudar o import já existente em `main.ts`.
+ */
+@import './app/styles/tokens.css';
+@import './app/styles/base.css';
