@@ -1,13 +1,8 @@
 /**
- * Router completo do app: rotas nomeadas (usadas por `RouterLink`,
- * `router.push({ name })` e pelo guard) e a proteção de autenticação —
- * único lugar que decide quem pode ver o quê. PIX e favorecidos ainda são
- * placeholders textuais; cada Task seguinte troca só o `component` da
- * rota por uma view real, sem tocar no guard.
+ * Router completo do app: rotas nomeadas + guard de autenticação.
+ * Único lugar que decide quem pode ver o quê.
  */
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
-import { defineComponent, h } from 'vue'
-import { useI18n } from 'vue-i18n'
 import { useAuthStore } from '@/features/auth/stores/authStore'
 
 declare module 'vue-router' {
@@ -15,17 +10,6 @@ declare module 'vue-router' {
     /** Rotas sem essa flag (ex.: `/login`) são acessíveis sem sessão. */
     requiresAuth?: boolean
   }
-}
-
-/** Fábrica de placeholder textual — evita repetir o boilerplate de `defineComponent` por rota. */
-function placeholder(labelKey: string) {
-  return defineComponent({
-    name: 'RoutePlaceholder',
-    setup() {
-      const { t } = useI18n()
-      return () => h('p', t(labelKey))
-    },
-  })
 }
 
 const routes: RouteRecordRaw[] = [
@@ -49,13 +33,13 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/transfer-pix',
     name: 'transfer-pix',
-    component: placeholder('nav.transferPix'),
+    component: () => import('@/features/transfers/views/TransferPixView.vue'),
     meta: { requiresAuth: true },
   },
   {
     path: '/beneficiaries',
     name: 'beneficiaries',
-    component: placeholder('nav.beneficiaries'),
+    component: () => import('@/features/beneficiaries/views/BeneficiariesView.vue'),
     meta: { requiresAuth: true },
   },
   {

@@ -44,6 +44,47 @@ export default {
   },
   transfers: {
     pix: 'PIX transfer',
+    form: {
+      beneficiary: 'Beneficiary',
+      chooseBeneficiary: 'Select a beneficiary',
+      amount: 'Amount (BRL)',
+      continue: 'Continue',
+    },
+    confirm: {
+      to: 'To',
+      amount: 'Amount',
+      submit: 'Confirm PIX',
+    },
+    receipt: {
+      title: 'Receipt',
+      id: 'ID',
+      when: 'Date',
+      again: 'New transfer',
+    },
+    validation: {
+      beneficiary: 'Select a beneficiary',
+      amount: 'Enter a valid amount (e.g. 10.50)',
+    },
+    errors: {
+      insufficientFunds: 'Insufficient funds for this transfer.',
+    },
+  },
+  beneficiaries: {
+    title: 'Beneficiaries',
+    remove: 'Remove',
+    form: {
+      name: 'Name',
+      pixKey: 'PIX key',
+      submit: 'Add',
+    },
+    validation: {
+      name: 'Name is required',
+      pixKey: 'PIX key is required',
+    },
+    empty: {
+      title: 'No beneficiaries',
+      description: 'Add someone to send PIX.',
+    },
   },
   settings: {
     title: 'Settings',
