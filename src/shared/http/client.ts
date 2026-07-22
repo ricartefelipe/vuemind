@@ -1,3 +1,9 @@
+/**
+ * Cliente HTTP único do VueMind: hoje o MSW intercepta `/api/v1` no dev;
+ * amanhã o mesmo path aponta para o backend Spring — callers não mudam.
+ * `X-Correlation-Id` rastreia a requisição ponta a ponta (UI → log).
+ * `setAuthTokenAccessor` injeta o Bearer sem acoplar o client ao store de sessão.
+ */
 import type { ApiErrorBody } from '@/shared/types/api'
 import { ApiError } from '@/shared/http/errors'
 import { createCorrelationId } from '@/shared/utils/id'
