@@ -8,8 +8,12 @@ export default {
     name: 'VueMind Wallet',
   },
   nav: {
-    home: 'Início',
+    dashboard: 'Início',
+    transactions: 'Extrato',
+    transferPix: 'Transferir PIX',
+    beneficiaries: 'Favorecidos',
     settings: 'Configurações',
+    logout: 'Sair',
   },
   login: {
     title: 'Entrar',

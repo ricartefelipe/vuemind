@@ -3,20 +3,38 @@
  * Casco visual do app: marca + navegação fixa em cima, `<RouterView>` como
  * outlet abaixo. É o único lugar que sabe sobre as rotas de topo — as
  * telas (features) não precisam saber que existe um shell em volta.
+ *
+ * A `nav` só aparece autenticado (`auth.isAuthenticated`): na tela de
+ * login não faz sentido oferecer atalho pra páginas que o guard vai
+ * bloquear de qualquer forma. O botão de logout mora aqui por ser a única
+ * ação de sessão que precisa estar visível em toda página protegida.
  */
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
+import { useAuthStore } from '@/features/auth/stores/authStore'
+import AppButton from '@/shared/ui/AppButton.vue'
 
 const { t } = useI18n()
+const auth = useAuthStore()
+const router = useRouter()
+
+async function handleLogout(): Promise<void> {
+  auth.logout()
+  await router.push({ name: 'login' })
+}
 </script>
 
 <template>
   <div class="app-shell">
     <header class="app-shell__header">
       <span class="app-shell__brand">{{ t('app.name') }}</span>
-      <nav class="app-shell__nav">
-        <RouterLink to="/" class="app-shell__link">{{ t('nav.home') }}</RouterLink>
-        <RouterLink to="/settings" class="app-shell__link">{{ t('nav.settings') }}</RouterLink>
+      <nav v-if="auth.isAuthenticated" class="app-shell__nav">
+        <RouterLink :to="{ name: 'dashboard' }" class="app-shell__link">{{ t('nav.dashboard') }}</RouterLink>
+        <RouterLink :to="{ name: 'transactions' }" class="app-shell__link">{{ t('nav.transactions') }}</RouterLink>
+        <RouterLink :to="{ name: 'transfer-pix' }" class="app-shell__link">{{ t('nav.transferPix') }}</RouterLink>
+        <RouterLink :to="{ name: 'beneficiaries' }" class="app-shell__link">{{ t('nav.beneficiaries') }}</RouterLink>
+        <RouterLink :to="{ name: 'settings' }" class="app-shell__link">{{ t('nav.settings') }}</RouterLink>
+        <AppButton variant="ghost" @click="handleLogout">{{ t('nav.logout') }}</AppButton>
       </nav>
     </header>
     <main class="app-shell__content">
