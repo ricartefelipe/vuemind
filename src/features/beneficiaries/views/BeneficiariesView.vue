@@ -46,7 +46,7 @@ async function onRemove(id: string): Promise<void> {
       v-if="store.loading || (store.items === null && !store.error)"
       :label="t('common.loading')"
     />
-    <ErrorBanner v-else-if="store.error" :message="t('common.error')">
+    <ErrorBanner v-else-if="store.error" :message="store.error.message || t('common.error')">
       <template #action>
         <AppButton variant="secondary" @click="store.load()">{{ t('common.retry') }}</AppButton>
       </template>
