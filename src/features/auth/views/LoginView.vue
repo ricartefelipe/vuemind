@@ -58,8 +58,8 @@ async function handleSubmit(): Promise<void> {
   min-height: 100vh;
   display: grid;
   grid-template-columns: 1.15fr 0.85fr;
-  background: radial-gradient(ellipse at 20% 20%, #1a3f38, #071a17 55%);
-  color: #f7faf8;
+  background: radial-gradient(ellipse at 20% 20%, var(--login-mist), var(--login-ink) 55%);
+  color: var(--color-text-inverse);
 }
 .login-hero__brand,
 .login-hero__panel {
@@ -69,15 +69,15 @@ async function handleSubmit(): Promise<void> {
   padding: clamp(2rem, 6vw, 5rem);
 }
 .login-hero__panel {
-  background: rgba(4, 17, 14, 0.55);
-  border-left: 1px solid rgba(224, 194, 122, 0.28);
+  background: color-mix(in srgb, var(--login-ink) 72%, transparent);
+  border-left: 1px solid color-mix(in srgb, var(--login-gold) 40%, transparent);
 }
 .login-hero__eyebrow {
   margin: 0 0 12px;
   font-size: 0.8125rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #e0c27a;
+  color: var(--login-gold);
   font-weight: 600;
 }
 .login-hero__title {
@@ -88,12 +88,12 @@ async function handleSubmit(): Promise<void> {
   margin: 0;
   max-width: 28ch;
   font-size: 1.125rem;
-  color: rgba(247, 250, 248, 0.78);
+  color: color-mix(in srgb, var(--color-text-inverse) 78%, transparent);
 }
 .login-hero__hint {
   margin: 16px 0 0;
   font-size: 0.8125rem;
-  color: #e0c27a;
+  color: var(--login-gold);
 }
 .login-form {
   display: flex;
@@ -106,23 +106,23 @@ async function handleSubmit(): Promise<void> {
   flex-direction: column;
   gap: 8px;
   font-size: 0.875rem;
-  color: rgba(247, 250, 248, 0.7);
+  color: color-mix(in srgb, var(--color-text-inverse) 70%, transparent);
 }
 .login-form input {
   min-height: 2.85rem;
   padding: 0.85rem 1rem;
   border-radius: 14px;
-  border: 1px solid rgba(224, 194, 122, 0.35);
-  background: rgba(10, 31, 27, 0.7);
-  color: #f7faf8;
+  border: 1px solid color-mix(in srgb, var(--login-gold) 40%, transparent);
+  background: color-mix(in srgb, var(--login-ink) 70%, transparent);
+  color: var(--color-text-inverse);
   font: inherit;
 }
 .login-form button {
   min-height: 3rem;
   border: none;
   border-radius: 999px;
-  background: linear-gradient(135deg, #e0c27a, #b8923f);
-  color: #10241f;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-strong));
+  color: var(--color-text-inverse);
   font-weight: 600;
   font: inherit;
   cursor: pointer;
@@ -131,6 +131,6 @@ async function handleSubmit(): Promise<void> {
 .login-form__error { margin: 0; color: #ffb4a8; font-size: 0.875rem; }
 @media (max-width: 860px) {
   .login-hero { grid-template-columns: 1fr; }
-  .login-hero__panel { border-left: none; border-top: 1px solid rgba(224, 194, 122, 0.28); }
+  .login-hero__panel { border-left: none; border-top: 1px solid color-mix(in srgb, var(--login-gold) 40%, transparent); }
 }
 </style>
