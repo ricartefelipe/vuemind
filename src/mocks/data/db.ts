@@ -1,17 +1,3 @@
-/**
- * "Banco de dados" do mock: um objeto mutável em memória, vivo enquanto a aba
- * do navegador (ou o processo de teste) estiver aberto. Não é Redux/Vuex —
- * é só o estado que o MSW lê e escreve para simular persistência real.
- *
- * `getDb()` sempre devolve a MESMA referência (não uma cópia), então qualquer
- * handler pode mutar `db.availableCents` ou dar `push` num array e o próximo
- * request já vê a mudança — exatamente como um banco faria entre requisições.
- *
- * `resetDb()` existe para os testes: cada `it()` pode chamar `resetDb()` no
- * `beforeEach` e começar sempre do mesmo saldo/extrato, sem vazar estado
- * entre casos (o clássico bug de "passa isolado, falha em bateria").
- */
-
 export type MockUser = {
   id: string
   name: string
@@ -48,11 +34,6 @@ export type Db = {
   beneficiaries: Beneficiary[]
   transactions: Transaction[]
   transfers: Transfer[]
-  /**
-   * Chave de idempotência → comprovante já emitido. Se o cliente reenviar o
-   * mesmo `Idempotency-Key` (retry de rede, duplo clique), devolvemos o MESMO
-   * `Transfer` em vez de debitar o saldo de novo.
-   */
   idempotency: Map<string, Transfer>
 }
 

@@ -1,8 +1,4 @@
 <script setup lang="ts">
-/**
- * Estado "sem dados" (extrato vazio, sem favorecidos etc.) — um dos
- * estados explícitos exigidos pela spec, para não deixar telas em branco.
- */
 defineProps<{
   title: string
   description?: string

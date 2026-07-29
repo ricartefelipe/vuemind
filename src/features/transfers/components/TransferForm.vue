@@ -1,8 +1,4 @@
 <script setup lang="ts">
-/**
- * Passo 1 do PIX: escolhe favorecido + valor em reais.
- * Converte para centavos com `parseReaisToCents` antes de emitir.
- */
 import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useBeneficiariesStore } from '@/features/beneficiaries/stores/beneficiariesStore'

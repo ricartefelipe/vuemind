@@ -28,3 +28,7 @@ coverage
 # OS
 .DS_Store
 Thumbs.db
+.cursor/
+.superpowers/
+AGENTS.md
+PROMPT-EVOLUCAO.md

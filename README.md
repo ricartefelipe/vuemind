@@ -37,4 +37,3 @@ Leia: [docs/guides/entrevista-vue.md](docs/guides/entrevista-vue.md)
 
 ## Trilha (próximos projetos)
 
-Plano curto: [docs/superpowers/plans/2026-07-22-trilha-entrevista.md](docs/superpowers/plans/2026-07-22-trilha-entrevista.md)

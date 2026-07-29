@@ -2,12 +2,6 @@ import { createPinia, setActivePinia } from 'pinia'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { useWalletStore } from './walletStore'
 
-/**
- * Mockamos `walletApi` (não `http`/MSW) pelo mesmo motivo do
- * `authStore.spec.ts`: o que a store precisa provar é a própria lógica —
- * "guardar saldo, expor loading/error, respeitar os filtros do extrato" —
- * não o transporte HTTP.
- */
 vi.mock('@/features/wallet/api/walletApi', () => ({
   walletApi: {
     getBalance: vi.fn(async () => ({ availableCents: 250000, currency: 'BRL' })),

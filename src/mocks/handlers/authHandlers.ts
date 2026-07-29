@@ -1,9 +1,3 @@
-/**
- * Login mock: só existe UM usuário na "base" (`getDb().user`), então este
- * handler apenas confere email/senha contra ele. No Spring real isso seria um
- * `AuthenticationManager` batendo num banco de usuários — a UI (`authApi`,
- * `authStore`) não precisa saber a diferença, só fala com `/api/v1/auth/login`.
- */
 import { http, HttpResponse } from 'msw'
 import { getDb } from '@/mocks/data/db'
 import { createCorrelationId } from '@/shared/utils/id'
@@ -14,7 +8,6 @@ type LoginRequestBody = {
   password: string
 }
 
-/** Token opaco fixo: basta para simular `Authorization: Bearer ...` no client HTTP. */
 const MOCK_TOKEN = 'mock-jwt-demo'
 
 export const authHandlers = [

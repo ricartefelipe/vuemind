@@ -1,16 +1,10 @@
 <script setup lang="ts">
-/**
- * Puramente apresentacional: não conhece `authStore` nem `router`, só
- * emite `submit` com as credenciais e recebe `loading`/`error` de fora.
- * Essa separação deixa a `LoginView` (que fala com a store) livre para
- * mudar de estratégia de auth sem tocar em HTML/validação do formulário.
- */
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import AppInput from '@/shared/ui/AppInput.vue'
 import AppButton from '@/shared/ui/AppButton.vue'
 
-defineProps<{
+const props = defineProps<{
   loading?: boolean
   error?: string
 }>()
@@ -20,8 +14,8 @@ const emit = defineEmits<{
 }>()
 
 const { t } = useI18n()
-const email = ref('')
-const password = ref('')
+const email = ref('demo@vuemind.dev')
+const password = ref('demo123')
 
 function handleSubmit(): void {
   emit('submit', email.value, password.value)
@@ -32,8 +26,8 @@ function handleSubmit(): void {
   <form class="login-form" @submit.prevent="handleSubmit">
     <AppInput id="login-email" v-model="email" type="email" :label="t('login.email')" />
     <AppInput id="login-password" v-model="password" type="password" :label="t('login.password')" />
-    <p v-if="error" class="login-form__error" role="alert">{{ error }}</p>
-    <AppButton type="submit" :disabled="loading">{{ t('login.submit') }}</AppButton>
+    <p v-if="props.error" class="login-form__error" role="alert">{{ props.error }}</p>
+    <AppButton type="submit" :disabled="props.loading">{{ t('login.submit') }}</AppButton>
   </form>
 </template>
 
@@ -41,14 +35,14 @@ function handleSubmit(): void {
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
+  gap: 16px;
   width: 100%;
-  max-width: 360px;
+  max-width: 380px;
 }
 
 .login-form__error {
   margin: 0;
-  font-size: var(--font-size-sm);
-  color: var(--color-danger);
+  font-size: 0.875rem;
+  color: #ffb4a8;
 }
 </style>

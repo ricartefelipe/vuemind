@@ -1,8 +1,3 @@
-/**
- * CRUD simples de favorecidos: sem banco real, então "criar" é dar `push` no
- * array e "remover" é filtrar por id. É o suficiente para exercitar a UI de
- * favorecidos sem precisar de um backend de verdade.
- */
 import { http, HttpResponse } from 'msw'
 import { getDb } from '@/mocks/data/db'
 import { createCorrelationId } from '@/shared/utils/id'

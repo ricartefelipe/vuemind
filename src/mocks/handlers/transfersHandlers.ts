@@ -1,14 +1,3 @@
-/**
- * `executePix` é a REGRA DE NEGÓCIO da transferência, escrita como função pura
- * (recebe o `db`, devolve o `Transfer` ou lança um `Error`). Ela não sabe nada
- * de HTTP, status code ou MSW — por isso é trivial testar com `expect(...)
- * .toThrowError(...)` sem subir rede nenhuma.
- *
- * O handler MSW abaixo é só a "casca HTTP": lê o body/headers da requisição,
- * chama `executePix`, e traduz o resultado (ou o erro) para o formato do
- * contrato (`Transfer` / `ApiError`). Essa separação é a mesma que existirá
- * no backend Spring: um `PixService` puro por trás de um `@RestController`.
- */
 import { http, HttpResponse } from 'msw'
 import type { Db, Transfer } from '@/mocks/data/db'
 import { getDb } from '@/mocks/data/db'
@@ -21,14 +10,7 @@ export type ExecutePixInput = {
   idempotencyKey: string
 }
 
-/**
- * Códigos de erro usados como `message` do `Error` (mesmo estilo de
- * `parseReaisToCents` em `shared/utils/money.ts`: o "código de negócio" É a
- * mensagem). O handler HTTP mapeia esse código para status + `ApiErrorBody`.
- */
 export function executePix(db: Db, input: ExecutePixInput): Transfer {
-  // Idempotência primeiro: se já processamos essa chave, devolve o mesmo
-  // comprovante sem tocar no saldo — protege contra retry de rede/duplo clique.
   const cached = db.idempotency.get(input.idempotencyKey)
   if (cached) return cached
 
@@ -66,7 +48,6 @@ export function executePix(db: Db, input: ExecutePixInput): Transfer {
   return transfer
 }
 
-/** Mapa código de negócio → status HTTP, igual a uma tabela de exceptions no Spring. */
 const ERROR_STATUS: Record<string, number> = {
   BENEFICIARY_NOT_FOUND: 400,
   INVALID_AMOUNT: 400,

@@ -2,12 +2,6 @@ import { createPinia, setActivePinia } from 'pinia'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { useAuthStore } from './authStore'
 
-/**
- * Mockamos `authApi` (não `http`/MSW) porque o que a store precisa provar
- * é a própria lógica — "guardar token e usuário, derivar isAuthenticated,
- * limpar tudo no logout" — não o transporte HTTP, que já tem seus próprios
- * testes em `client.spec.ts`.
- */
 vi.mock('@/features/auth/api/authApi', () => ({
   authApi: {
     login: vi.fn(async () => ({

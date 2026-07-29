@@ -1,8 +1,3 @@
-/**
- * Dinheiro no VueMind: o contrato HTTP fala em CENTAVOS (integer).
- * A UI formata para o humano. Isso evita erro de ponto flutuante
- * (0.1 + 0.2) e alinha com o futuro backend Spring.
- */
 export function formatCents(
   cents: number,
   locale: string,

@@ -1,8 +1,4 @@
 <script setup lang="ts">
-/**
- * Fluxo PIX em 3 passos. Após sucesso, recarrega o saldo da wallet
- * para o dashboard refletir o débito feito pelo mock.
- */
 import { onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useTransfersStore } from '@/features/transfers/stores/transfersStore'

@@ -1,10 +1,4 @@
 <script setup lang="ts">
-/**
- * Puramente apresentacional (mesma separação da `LoginForm`): não conhece
- * `walletStore` nem `settingsStore`, só recebe centavos + moeda + locale
- * já resolvidos e formata. Isso permite reutilizar o cartão em qualquer
- * tela futura (ex.: um resumo na home) sem duplicar a leitura das stores.
- */
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { formatCents } from '@/shared/utils/money'
@@ -21,6 +15,7 @@ const formatted = computed(() => formatCents(props.cents, locale.value, props.cu
 
 <template>
   <div class="balance-card">
+    <div class="balance-card__glow" aria-hidden="true" />
     <span class="balance-card__label">{{ t('wallet.balance') }}</span>
     <span class="balance-card__value">{{ formatted }}</span>
   </div>
@@ -28,23 +23,45 @@ const formatted = computed(() => formatCents(props.cents, locale.value, props.cu
 
 <style scoped>
 .balance-card {
+  position: relative;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
-  background-color: var(--color-primary-soft);
-  border-radius: var(--radius-lg);
-  padding: var(--space-5);
-  box-shadow: var(--shadow-sm);
+  gap: var(--space-3);
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  border-radius: var(--radius-xl);
+  background:
+    linear-gradient(145deg, var(--color-primary) 0%, var(--color-primary-strong) 55%, #0a2e28 100%);
+  color: var(--color-text-inverse);
+  box-shadow: var(--shadow-glow);
+  animation: mind-rise var(--motion) both;
+}
+
+.balance-card__glow {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  right: -40px;
+  top: -60px;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--color-accent) 55%, transparent), transparent 68%);
+  animation: mind-shimmer 5.5s ease-in-out infinite;
 }
 
 .balance-card__label {
+  position: relative;
   font-size: var(--font-size-sm);
-  color: var(--color-text-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--color-accent) 80%, white);
 }
 
 .balance-card__value {
+  position: relative;
   font-family: var(--font-display);
-  font-size: var(--font-size-xl);
-  color: var(--color-primary-strong);
+  font-size: clamp(2.4rem, 7vw, 3.6rem);
+  letter-spacing: -0.03em;
+  line-height: 1;
 }
 </style>

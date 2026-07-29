@@ -1,8 +1,4 @@
 <script setup lang="ts">
-/**
- * Form mínimo: nome + chave PIX. Emite `submit` só com campos válidos —
- * a view decide se chama a store ou mostra o erro de API.
- */
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import AppInput from '@/shared/ui/AppInput.vue'
