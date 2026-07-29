@@ -6,7 +6,7 @@ vi.mock('@/features/auth/api/authApi', () => ({
   authApi: {
     login: vi.fn(async () => ({
       accessToken: 'tok',
-      user: { id: 'u1', name: 'Marion', email: 'demo@vuemind.dev' },
+      user: { id: 'u1', name: 'Felipe Demo', email: 'demo@vuemind.dev' },
     })),
   },
 }))
