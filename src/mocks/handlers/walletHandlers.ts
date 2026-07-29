@@ -1,8 +1,3 @@
-/**
- * Saldo e extrato lidos direto do `db` em memória. O filtro do extrato
- * (`from`/`to`/`type`) é aplicado aqui, do mesmo jeito que uma query real
- * filtraria no banco — a UI só manda os parâmetros e recebe a lista já pronta.
- */
 import { http, HttpResponse } from 'msw'
 import { getDb } from '@/mocks/data/db'
 

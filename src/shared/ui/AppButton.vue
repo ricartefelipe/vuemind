@@ -1,9 +1,4 @@
 <script setup lang="ts">
-/**
- * Botão único do app: 3 variantes cobrem os casos previstos no plano
- * (ação principal, ação secundária, ação discreta em linha). Preferimos
- * isso a puxar uma lib de UI só por um botão.
- */
 withDefaults(
   defineProps<{
     variant?: 'primary' | 'secondary' | 'ghost'
@@ -31,16 +26,17 @@ withDefaults(
   justify-content: center;
   gap: var(--space-2);
   font-family: var(--font-ui);
-  font-weight: 500;
+  font-weight: 600;
   font-size: var(--font-size-sm);
-  border-radius: var(--radius-md);
-  padding: 0.6rem 1.1rem;
+  border-radius: 999px;
+  padding: 0.7rem 1.25rem;
   border: 1px solid transparent;
   cursor: pointer;
   transition:
-    background-color 0.15s ease,
-    border-color 0.15s ease,
-    opacity 0.15s ease;
+    background-color var(--motion-fast),
+    border-color var(--motion-fast),
+    transform var(--motion-fast),
+    opacity var(--motion-fast);
 }
 
 .app-button:disabled {
@@ -51,14 +47,16 @@ withDefaults(
 .app-button--primary {
   background-color: var(--color-primary);
   color: var(--color-text-inverse);
+  box-shadow: var(--shadow-sm);
 }
 
 .app-button--primary:hover:not(:disabled) {
   background-color: var(--color-primary-strong);
+  transform: translateY(-1px);
 }
 
 .app-button--secondary {
-  background-color: transparent;
+  background-color: var(--color-surface-elevated);
   border-color: var(--color-border);
   color: var(--color-text);
 }
@@ -70,11 +68,12 @@ withDefaults(
 
 .app-button--ghost {
   background-color: transparent;
-  color: var(--color-accent-strong);
-  padding: 0.4rem 0.6rem;
+  color: var(--color-text-muted);
+  padding: 0.45rem 0.75rem;
 }
 
 .app-button--ghost:hover:not(:disabled) {
-  text-decoration: underline;
+  color: var(--color-primary-strong);
+  background: color-mix(in srgb, var(--color-primary) 8%, transparent);
 }
 </style>

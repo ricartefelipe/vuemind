@@ -1,4 +1,3 @@
-/** Comprovante PIX retornado por POST /transfers/pix. */
 export type PixTransfer = {
   id: string
   beneficiaryId: string

@@ -2,11 +2,6 @@ import { createPinia, setActivePinia } from 'pinia'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { useBeneficiariesStore } from './beneficiariesStore'
 
-/**
- * Mockamos `beneficiariesApi` (não `http`/MSW): a store precisa provar a
- * própria lógica — "após create, a lista contém o novo item" — sem pagar
- * o custo de subir o worker MSW neste teste unitário.
- */
 vi.mock('@/features/beneficiaries/api/beneficiariesApi', () => ({
   beneficiariesApi: {
     list: vi.fn(async () => ({

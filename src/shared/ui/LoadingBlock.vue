@@ -1,8 +1,4 @@
 <script setup lang="ts">
-/**
- * Estado de carregamento genérico (spinner + rótulo opcional). `role="status"`
- * evita que leitores de tela fiquem mudos enquanto a UI está ocupada.
- */
 defineProps<{
   label?: string
 }>()

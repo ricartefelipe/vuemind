@@ -1,8 +1,4 @@
 <script setup lang="ts">
-/**
- * Tela de favorecidos: carrega a lista, cria e remove.
- * Estados loading/erro/vazio seguem o mesmo padrão do extrato.
- */
 import { onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useBeneficiariesStore } from '@/features/beneficiaries/stores/beneficiariesStore'
@@ -24,7 +20,6 @@ async function onCreate(payload: { name: string; pixKey: string }): Promise<void
   try {
     await store.create(payload)
   } catch {
-    /* mutateError já preenchido */
   }
 }
 
@@ -32,7 +27,6 @@ async function onRemove(id: string): Promise<void> {
   try {
     await store.remove(id)
   } catch {
-    /* mutateError já preenchido */
   }
 }
 </script>

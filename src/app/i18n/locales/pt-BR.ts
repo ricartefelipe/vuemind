@@ -1,30 +1,28 @@
-/**
- * Dicionário pt-BR: chaves mínimas para o shell e as telas já previstas no
- * plano (login, saldo, transferências). Telas ainda não implementadas usam
- * essas chaves desde já para não haver retrabalho de i18n depois.
- */
 export default {
   app: {
-    name: 'VueMind Wallet',
+    name: 'VueMind',
   },
   nav: {
     dashboard: 'Início',
     transactions: 'Extrato',
-    transferPix: 'Transferir PIX',
+    transferPix: 'PIX',
     beneficiaries: 'Favorecidos',
-    settings: 'Configurações',
+    settings: 'Ajustes',
     logout: 'Sair',
   },
   login: {
-    title: 'Entrar',
+    title: 'VueMind',
+    subtitle: 'Sua carteira digital — saldo, PIX e favorecidos em um fluxo limpo.',
+    hint: "Demo: demo{'@'}vuemind.dev / demo123",
     email: 'E-mail',
     password: 'Senha',
-    submit: 'Entrar',
+    submit: 'Entrar na carteira',
   },
   wallet: {
-    balance: 'Saldo',
+    balance: 'Saldo disponível',
+    greeting: 'Olá',
     transactions: 'Extrato',
-    shortcutsTitle: 'Atalhos',
+    shortcutsTitle: 'Movimentar',
     filters: {
       from: 'De',
       to: 'Até',

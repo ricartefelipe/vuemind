@@ -1,13 +1,4 @@
 <script setup lang="ts">
-/**
- * Única tela deste marco: alterna tema e idioma. `applyTheme` é chamado
- * manualmente a cada clique porque o efeito dele (atributo no `<html>`)
- * fica fora do grafo reativo do Vue — um `watch` aqui só adicionaria uma
- * indireção sem ganho, já que o próprio clique já sabe o novo valor.
- *
- * `locale` vem de `useI18n()` (sem opções) e por padrão aponta para o
- * composer global — atualizá-lo aqui já troca o idioma do app inteiro.
- */
 import { useI18n } from 'vue-i18n'
 import { applyTheme } from '@/app/theme/applyTheme'
 import { useSettingsStore, type Locale, type Theme } from '@/features/settings/stores/settingsStore'

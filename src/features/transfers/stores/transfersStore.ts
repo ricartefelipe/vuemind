@@ -1,7 +1,3 @@
-/**
- * Máquina de passos do PIX: form → confirm → receipt.
- * A Idempotency-Key só é gerada na confirmação (não a cada tecla).
- */
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { transfersApi } from '@/features/transfers/api/transfersApi'
@@ -40,7 +36,6 @@ export const useTransfersStore = defineStore('transfers', () => {
     } catch (err) {
       error.value = err as Error
       if (!(err instanceof ApiError) || err.code !== 'INSUFFICIENT_FUNDS') {
-        /* outros erros também ficam no banner */
       }
     } finally {
       loading.value = false

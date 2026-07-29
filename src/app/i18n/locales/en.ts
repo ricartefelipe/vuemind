@@ -1,30 +1,28 @@
-/**
- * English dictionary, mirroring `pt-BR.ts` key by key. Keep both files in
- * sync manually — with this few keys, a build-time key-check tool would be
- * overkill for a study project.
- */
 export default {
   app: {
-    name: 'VueMind Wallet',
+    name: 'VueMind',
   },
   nav: {
     dashboard: 'Home',
-    transactions: 'Transactions',
-    transferPix: 'PIX transfer',
-    beneficiaries: 'Beneficiaries',
+    transactions: 'Activity',
+    transferPix: 'PIX',
+    beneficiaries: 'Payees',
     settings: 'Settings',
     logout: 'Log out',
   },
   login: {
-    title: 'Sign in',
+    title: 'VueMind',
+    subtitle: 'Your digital wallet — balance, PIX and payees in a clean flow.',
+    hint: "Demo: demo{'@'}vuemind.dev / demo123",
     email: 'Email',
     password: 'Password',
-    submit: 'Sign in',
+    submit: 'Enter wallet',
   },
   wallet: {
-    balance: 'Balance',
-    transactions: 'Transactions',
-    shortcutsTitle: 'Shortcuts',
+    balance: 'Available balance',
+    greeting: 'Hello',
+    transactions: 'Activity',
+    shortcutsTitle: 'Move money',
     filters: {
       from: 'From',
       to: 'To',
