@@ -31,7 +31,7 @@ async function handleSubmit(): Promise<void> {
 <template>
   <section class="login-hero">
     <div class="login-hero__brand">
-      <p class="login-hero__eyebrow">Carteira digital</p>
+      <p class="login-hero__eyebrow">Vue · Carteira</p>
       <h1 class="login-hero__title">{{ t('login.title') }}</h1>
       <p class="login-hero__subtitle">{{ t('login.subtitle') }}</p>
     </div>
@@ -121,7 +121,7 @@ async function handleSubmit(): Promise<void> {
   min-height: 3rem;
   border: none;
   border-radius: 999px;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-strong));
+  background: linear-gradient(135deg, var(--color-primary), var(--color-cta-end));
   color: var(--color-text-inverse);
   font-weight: 600;
   font: inherit;
