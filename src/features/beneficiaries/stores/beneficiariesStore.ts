@@ -1,7 +1,3 @@
-/**
- * Store de favorecidos: lista em memória da sessão + create/remove.
- * `items` fica `null` até o primeiro load (evita flash de empty state).
- */
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 import { beneficiariesApi } from '@/features/beneficiaries/api/beneficiariesApi'
@@ -19,7 +15,6 @@ export const useBeneficiariesStore = defineStore('beneficiaries', () => {
     try {
       await listState.run(async () => (await beneficiariesApi.list()).items)
     } catch {
-      /* já em listState.error */
     }
   }
 

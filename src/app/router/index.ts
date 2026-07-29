@@ -1,13 +1,9 @@
-/**
- * Router completo do app: rotas nomeadas + guard de autenticação.
- * Único lugar que decide quem pode ver o quê.
- */
-import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHashHistory, type RouteRecordRaw } from 'vue-router'
 import { useAuthStore } from '@/features/auth/stores/authStore'
+import LoginView from '@/features/auth/views/LoginView.vue'
 
 declare module 'vue-router' {
   interface RouteMeta {
-    /** Rotas sem essa flag (ex.: `/login`) são acessíveis sem sessão. */
     requiresAuth?: boolean
   }
 }
@@ -16,7 +12,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/login',
     name: 'login',
-    component: () => import('@/features/auth/views/LoginView.vue'),
+    component: LoginView,
   },
   {
     path: '/',
@@ -51,16 +47,10 @@ const routes: RouteRecordRaw[] = [
 ]
 
 export const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(),
   routes,
 })
 
-/**
- * Guard global: sem token tentando entrar numa rota `requiresAuth` volta
- * pro `/login`; já logado tentando ver o `/login` vai direto pro
- * `dashboard` — evita a UX de um usuário autenticado cair de novo no
- * formulário de senha (ex.: voltar no histórico do navegador).
- */
 router.beforeEach((to) => {
   const auth = useAuthStore()
   if (to.meta.requiresAuth && !auth.isAuthenticated) return { name: 'login' }

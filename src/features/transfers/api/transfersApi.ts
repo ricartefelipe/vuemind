@@ -1,7 +1,3 @@
-/**
- * API de transferências. Sempre envie `Idempotency-Key` no createPix —
- * protege contra duplo clique / retry (mesmo padrão do Spring futuro).
- */
 import { http } from '@/shared/http/client'
 import type { CreatePixInput, PixTransfer } from '@/features/transfers/types'
 

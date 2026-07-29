@@ -1,11 +1,4 @@
 <script setup lang="ts">
-/**
- * Filtros (`from`/`to`/`type`) moram direto em `wallet.filters` — como é
- * `reactive` na store, o `v-model` aqui já edita o mesmo objeto que
- * `loadTransactions()` envia para a API, sem estado local duplicado nesta
- * view. O recarregamento só acontece no clique de "Filtrar", não a cada
- * tecla: evita disparar uma requisição por caractere digitado na data.
- */
 import { onMounted, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useWalletStore } from '@/features/wallet/stores/walletStore'

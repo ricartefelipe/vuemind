@@ -1,7 +1,3 @@
-/**
- * Porta HTTP dos favorecidos. A store só fala com esta API — trocar MSW
- * por Spring é só mudar o destino do `http` client, sem reescrever a UI.
- */
 import { http } from '@/shared/http/client'
 import type {
   BeneficiariesResponse,

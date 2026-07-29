@@ -1,9 +1,4 @@
 <script setup lang="ts">
-/**
- * Input controlado via `v-model` (evento `update:modelValue`) com label e
- * mensagem de erro embutidos — os formulários de login/PIX das próximas
- * tasks só precisam passar `error` para ligar a mensagem ao campo.
- */
 defineProps<{
   modelValue: string
   label?: string
@@ -37,11 +32,12 @@ defineEmits<{
 .app-input {
   display: flex;
   flex-direction: column;
-  gap: var(--space-1);
+  gap: var(--space-2);
 }
 
 .app-input__label {
   font-size: var(--font-size-sm);
+  font-weight: 500;
   color: var(--color-text-muted);
 }
 
@@ -49,15 +45,17 @@ defineEmits<{
   font-family: var(--font-ui);
   font-size: var(--font-size-md);
   color: var(--color-text);
-  background-color: var(--color-surface);
+  background-color: var(--color-surface-elevated);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  padding: 0.55rem 0.75rem;
+  border-radius: var(--radius-md);
+  padding: 0.75rem 0.9rem;
+  transition: border-color var(--motion-fast), box-shadow var(--motion-fast);
 }
 
 .app-input__field:focus {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 1px;
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 18%, transparent);
 }
 
 .app-input__field--invalid {

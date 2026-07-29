@@ -1,9 +1,4 @@
 <script setup lang="ts">
-/**
- * Erro recuperável (ex.: falha de rede numa listagem) — deliberadamente
- * sem texto de ação embutido: quem chama decide o rótulo (`t('common.retry')`)
- * via slot `action`, mantendo este componente livre de i18n.
- */
 defineProps<{
   message: string
 }>()

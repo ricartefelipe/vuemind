@@ -1,16 +1,3 @@
-/**
- * Única store que guarda uma credencial sensível: `accessToken` é
- * persistido em `localStorage` via `pinia-plugin-persistedstate` (mesma
- * estratégia da `settingsStore`) para sobreviver a um F5 — não é o ideal
- * para produção (um XSS rouba o token de `localStorage`), mas é o padrão
- * didático deste projeto; a evolução real seria um cookie `HttpOnly`
- * emitido pelo backend.
- *
- * `isAuthenticated` é um *getter* derivado de `accessToken`, nunca um
- * boolean próprio: assim não existe o estado impossível "token nulo mas
- * isAuthenticated true", que seria a fonte clássica de bug no guard de
- * rota (Task 5, `router/index.ts`).
- */
 import { defineStore } from 'pinia'
 import { authApi } from '@/features/auth/api/authApi'
 import type { AuthUser } from '@/features/auth/types'
