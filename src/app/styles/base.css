@@ -24,7 +24,6 @@ body {
   font-family: var(--font-ui);
   font-size: var(--font-size-md);
   line-height: 1.5;
-  transition: background-color var(--motion-fast), color var(--motion-fast);
 }
 
 h1,

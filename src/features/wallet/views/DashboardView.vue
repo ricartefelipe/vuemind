@@ -63,10 +63,6 @@ onMounted(() => {
   gap: var(--space-5);
 }
 
-.dashboard-view__intro {
-  animation: mind-rise var(--motion) both;
-}
-
 .dashboard-view__eyebrow {
   margin: 0 0 var(--space-2);
   font-size: var(--font-size-sm);
@@ -83,8 +79,6 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
-  animation: mind-rise var(--motion) both;
-  animation-delay: 90ms;
 }
 
 .dashboard-view__actions h2 {

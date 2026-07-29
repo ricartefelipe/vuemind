@@ -11,18 +11,6 @@ import { useAuthStore } from './features/auth/stores/authStore'
 import { setAuthTokenAccessor } from './shared/http/client'
 
 async function bootstrap(): Promise<void> {
-  const enableMsw =
-    import.meta.env.DEV || import.meta.env.VITE_ENABLE_MSW === 'true'
-  if (enableMsw) {
-    const { worker } = await import('./mocks/browser')
-    await worker.start({
-      onUnhandledRequest: 'bypass',
-      serviceWorker: {
-        url: `${import.meta.env.BASE_URL}mockServiceWorker.js`,
-      },
-    })
-  }
-
   const app = createApp(App)
 
   const pinia = createPinia()
@@ -37,6 +25,18 @@ async function bootstrap(): Promise<void> {
 
   const auth = useAuthStore(pinia)
   setAuthTokenAccessor(() => auth.accessToken)
+
+  const enableMsw =
+    import.meta.env.DEV || import.meta.env.VITE_ENABLE_MSW === 'true'
+  if (enableMsw) {
+    const { worker } = await import('./mocks/browser')
+    await worker.start({
+      onUnhandledRequest: 'bypass',
+      serviceWorker: {
+        url: `${import.meta.env.BASE_URL}mockServiceWorker.js`,
+      },
+    })
+  }
 
   app.mount('#app')
 }

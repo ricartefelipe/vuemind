@@ -40,6 +40,8 @@
   --color-primary: #2f9f6e;
   --color-primary-strong: #217a54;
   --color-primary-soft: #d4f0e3;
+  --color-hero-deep: #0d3d2a;
+  --color-cta-end: #1a6646;
 
   --color-accent: #35495e;
   --color-accent-strong: #273849;
@@ -72,6 +74,8 @@
   --color-primary: #42b883;
   --color-primary-strong: #68d4a4;
   --color-primary-soft: #1a3d2d;
+  --color-hero-deep: #061a12;
+  --color-cta-end: #2f9f6e;
 
   --color-accent: #8aa4bd;
   --color-accent-strong: #b3c6d8;
