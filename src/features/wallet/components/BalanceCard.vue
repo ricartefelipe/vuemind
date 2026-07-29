@@ -31,10 +31,14 @@ const formatted = computed(() => formatCents(props.cents, locale.value, props.cu
   padding: clamp(1.5rem, 4vw, 2.5rem);
   border-radius: var(--radius-xl);
   background:
-    linear-gradient(145deg, var(--color-primary) 0%, var(--color-primary-strong) 55%, #0a2e28 100%);
+    linear-gradient(
+      145deg,
+      var(--color-primary) 0%,
+      var(--color-primary-strong) 55%,
+      var(--color-hero-deep) 100%
+    );
   color: var(--color-text-inverse);
   box-shadow: var(--shadow-glow);
-  animation: mind-rise var(--motion) both;
 }
 
 .balance-card__glow {
@@ -45,7 +49,6 @@ const formatted = computed(() => formatCents(props.cents, locale.value, props.cu
   top: -60px;
   border-radius: 50%;
   background: radial-gradient(circle, color-mix(in srgb, var(--color-accent) 55%, transparent), transparent 68%);
-  animation: mind-shimmer 5.5s ease-in-out infinite;
 }
 
 .balance-card__label {

@@ -61,7 +61,6 @@ async function handleLogout(): Promise<void> {
   background: color-mix(in srgb, var(--color-surface-elevated) 86%, transparent);
   border-bottom: 1px solid color-mix(in srgb, var(--color-border) 70%, transparent);
   backdrop-filter: blur(14px);
-  animation: mind-rise var(--motion) both;
 }
 
 .app-shell__brand {
