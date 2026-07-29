@@ -30,9 +30,16 @@ import { setAuthTokenAccessor } from './shared/http/client'
  * clique de login — já sai com o `Authorization` correto.
  */
 async function bootstrap(): Promise<void> {
-  if (import.meta.env.DEV) {
+  const enableMsw =
+    import.meta.env.DEV || import.meta.env.VITE_ENABLE_MSW === 'true'
+  if (enableMsw) {
     const { worker } = await import('./mocks/browser')
-    await worker.start({ onUnhandledRequest: 'bypass' })
+    await worker.start({
+      onUnhandledRequest: 'bypass',
+      serviceWorker: {
+        url: `${import.meta.env.BASE_URL}mockServiceWorker.js`,
+      },
+    })
   }
 
   const app = createApp(App)
