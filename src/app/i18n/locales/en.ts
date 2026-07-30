@@ -13,7 +13,6 @@ export default {
   login: {
     title: 'VueMind',
     subtitle: 'Your digital wallet — balance, PIX and payees in a clean flow.',
-    hint: "Demo: demo{'@'}vuemind.dev / demo123",
     email: 'Email',
     password: 'Password',
     submit: 'Enter wallet',

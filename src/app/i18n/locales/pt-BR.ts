@@ -13,7 +13,6 @@ export default {
   login: {
     title: 'VueMind',
     subtitle: 'Sua carteira digital — saldo, PIX e favorecidos em um fluxo limpo.',
-    hint: "Demo: demo{'@'}vuemind.dev / demo123",
     email: 'E-mail',
     password: 'Senha',
     submit: 'Entrar na carteira',
