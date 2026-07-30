@@ -58,6 +58,11 @@
   --login-ink: #163228;
   --login-mist: #1f5c42;
   --login-gold: #8fd9b5;
+  --login-text: #f4fbf7;
+  --login-text-muted: #c8ead9;
+  --login-field-bg: #0f241c;
+  --login-field-border: #6bc49a;
+  --login-cta-text: #ffffff;
 }
 
 [data-theme='dark'] {
@@ -92,4 +97,9 @@
   --login-ink: #08140f;
   --login-mist: #154032;
   --login-gold: #68d4a4;
+  --login-text: #f4fbf7;
+  --login-text-muted: #b6e0cc;
+  --login-field-bg: #10271e;
+  --login-field-border: #5db892;
+  --login-cta-text: #06140f;
 }
