@@ -9,8 +9,8 @@ const { t } = useI18n()
 const router = useRouter()
 const auth = useAuthStore()
 
-const email = ref('demo@vuemind.dev')
-const password = ref('demo123')
+const email = ref('')
+const password = ref('')
 const loading = ref(false)
 const error = ref('')
 
@@ -48,7 +48,6 @@ async function handleSubmit(): Promise<void> {
         <p v-if="error" class="login-form__error" role="alert">{{ error }}</p>
         <button type="submit" :disabled="loading">{{ t('login.submit') }}</button>
       </form>
-      <p class="login-hero__hint">{{ t('login.hint') }}</p>
     </div>
   </section>
 </template>
@@ -90,11 +89,6 @@ async function handleSubmit(): Promise<void> {
   max-width: 28ch;
   font-size: 1.125rem;
   color: var(--login-text-muted);
-}
-.login-hero__hint {
-  margin: 16px 0 0;
-  font-size: 0.8125rem;
-  color: var(--login-gold);
 }
 .login-form {
   display: flex;
