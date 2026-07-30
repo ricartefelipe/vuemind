@@ -14,8 +14,8 @@ const emit = defineEmits<{
 }>()
 
 const { t } = useI18n()
-const email = ref('demo@vuemind.dev')
-const password = ref('demo123')
+const email = ref('')
+const password = ref('')
 
 function handleSubmit(): void {
   emit('submit', email.value, password.value)
