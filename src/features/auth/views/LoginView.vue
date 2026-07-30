@@ -59,7 +59,7 @@ async function handleSubmit(): Promise<void> {
   display: grid;
   grid-template-columns: 1.15fr 0.85fr;
   background: radial-gradient(ellipse at 20% 20%, var(--login-mist), var(--login-ink) 55%);
-  color: var(--color-text-inverse);
+  color: var(--login-text);
 }
 .login-hero__brand,
 .login-hero__panel {
@@ -69,8 +69,8 @@ async function handleSubmit(): Promise<void> {
   padding: clamp(2rem, 6vw, 5rem);
 }
 .login-hero__panel {
-  background: color-mix(in srgb, var(--login-ink) 72%, transparent);
-  border-left: 1px solid color-mix(in srgb, var(--login-gold) 40%, transparent);
+  background: color-mix(in srgb, var(--login-ink) 88%, #000 12%);
+  border-left: 1px solid var(--login-field-border);
 }
 .login-hero__eyebrow {
   margin: 0 0 12px;
@@ -83,12 +83,13 @@ async function handleSubmit(): Promise<void> {
 .login-hero__title {
   font-size: clamp(2.75rem, 6vw, 4.5rem);
   margin: 0 0 16px;
+  color: var(--login-text);
 }
 .login-hero__subtitle {
   margin: 0;
   max-width: 28ch;
   font-size: 1.125rem;
-  color: color-mix(in srgb, var(--color-text-inverse) 78%, transparent);
+  color: var(--login-text-muted);
 }
 .login-hero__hint {
   margin: 16px 0 0;
@@ -106,23 +107,41 @@ async function handleSubmit(): Promise<void> {
   flex-direction: column;
   gap: 8px;
   font-size: 0.875rem;
-  color: color-mix(in srgb, var(--color-text-inverse) 70%, transparent);
+  font-weight: 500;
+  color: var(--login-text-muted);
 }
 .login-form input {
   min-height: 2.85rem;
   padding: 0.85rem 1rem;
   border-radius: 14px;
-  border: 1px solid color-mix(in srgb, var(--login-gold) 40%, transparent);
-  background: color-mix(in srgb, var(--login-ink) 70%, transparent);
-  color: var(--color-text-inverse);
+  border: 1px solid var(--login-field-border);
+  background: var(--login-field-bg);
+  color: var(--login-text);
+  caret-color: var(--login-text);
   font: inherit;
+}
+.login-form input::placeholder {
+  color: color-mix(in srgb, var(--login-text-muted) 75%, transparent);
+}
+.login-form input:focus {
+  outline: none;
+  border-color: var(--login-gold);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 35%, transparent);
+}
+.login-form input:-webkit-autofill,
+.login-form input:-webkit-autofill:hover,
+.login-form input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--login-text);
+  caret-color: var(--login-text);
+  box-shadow: 0 0 0 1000px var(--login-field-bg) inset;
+  transition: background-color 99999s ease-out;
 }
 .login-form button {
   min-height: 3rem;
   border: none;
   border-radius: 999px;
   background: linear-gradient(135deg, var(--color-primary), var(--color-cta-end));
-  color: var(--color-text-inverse);
+  color: var(--login-cta-text);
   font-weight: 600;
   font: inherit;
   cursor: pointer;
@@ -131,6 +150,6 @@ async function handleSubmit(): Promise<void> {
 .login-form__error { margin: 0; color: #ffb4a8; font-size: 0.875rem; }
 @media (max-width: 860px) {
   .login-hero { grid-template-columns: 1fr; }
-  .login-hero__panel { border-left: none; border-top: 1px solid color-mix(in srgb, var(--login-gold) 40%, transparent); }
+  .login-hero__panel { border-left: none; border-top: 1px solid var(--login-field-border); }
 }
 </style>
