@@ -20,6 +20,7 @@
     "vue-router": "^4.6.4"
   },
   "devDependencies": {
+    "@ricartefelipe/mind-wallet-shared": "file:../mind-shared",
     "@testing-library/jest-dom": "^7.0.0",
     "@testing-library/vue": "^8.1.0",
     "@vitejs/plugin-vue": "^5.2.1",
