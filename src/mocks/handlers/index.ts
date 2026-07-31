@@ -1,11 +1,9 @@
-import { authHandlers } from '@/mocks/handlers/authHandlers'
-import { walletHandlers } from '@/mocks/handlers/walletHandlers'
-import { beneficiariesHandlers } from '@/mocks/handlers/beneficiariesHandlers'
-import { transfersHandlers } from '@/mocks/handlers/transfersHandlers'
+import { createMindHandlers } from '@ricartefelipe/mind-wallet-shared/msw'
+import type { RequestHandler } from 'msw'
+import { totalRecallBaseUrl } from '@/shared/totalrecall'
 
-export const handlers = [
-  ...authHandlers,
-  ...walletHandlers,
-  ...beneficiariesHandlers,
-  ...transfersHandlers,
-]
+export const handlers = createMindHandlers({
+  apiBasePath: '/api/v1',
+  systemSlug: 'vuemind',
+  totalRecallUrl: totalRecallBaseUrl(),
+}) as unknown as RequestHandler[]
