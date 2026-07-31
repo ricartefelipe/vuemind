@@ -16,6 +16,7 @@ export default {
     email: 'Email',
     password: 'Password',
     submit: 'Enter wallet',
+    submitting: 'Signing in…',
   },
   wallet: {
     balance: 'Available balance',

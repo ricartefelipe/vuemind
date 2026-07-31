@@ -46,7 +46,9 @@ async function handleSubmit(): Promise<void> {
           <input v-model="password" type="password" autocomplete="current-password" />
         </label>
         <p v-if="error" class="login-form__error" role="alert">{{ error }}</p>
-        <button type="submit" :disabled="loading">{{ t('login.submit') }}</button>
+        <button type="submit" :disabled="loading" :aria-busy="loading">
+          {{ loading ? t('login.submitting') : t('login.submit') }}
+        </button>
       </form>
     </div>
   </section>

@@ -16,6 +16,7 @@ export default {
     email: 'E-mail',
     password: 'Senha',
     submit: 'Entrar na carteira',
+    submitting: 'Entrando…',
   },
   wallet: {
     balance: 'Saldo disponível',
