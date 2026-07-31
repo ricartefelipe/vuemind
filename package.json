@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
+    "build:pages": "VITE_BASE=/vuemind/ VITE_ENABLE_MSW=true vue-tsc -b && VITE_BASE=/vuemind/ VITE_ENABLE_MSW=true vite build",
     "preview": "vite preview",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
