@@ -26,11 +26,8 @@ async function bootstrap(): Promise<void> {
   const auth = useAuthStore(pinia)
   setAuthTokenAccessor(() => auth.accessToken)
 
-  const mswFlag = import.meta.env.VITE_ENABLE_MSW
-  const enableMsw =
-    mswFlag === 'true' ||
-    (mswFlag !== 'false' &&
-      (import.meta.env.DEV || import.meta.env.BASE_URL !== '/'))
+  const { shouldEnableMsw } = await import('./shared/http/apiConfig')
+  const enableMsw = shouldEnableMsw()
   if (enableMsw) {
     const { worker } = await import('./mocks/browser')
     await worker.start({
