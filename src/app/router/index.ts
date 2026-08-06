@@ -27,15 +27,21 @@ const routes: RouteRecordRaw[] = [
     meta: { requiresAuth: true },
   },
   {
+    path: '/beneficiaries',
+    name: 'beneficiaries',
+    component: () => import('@/features/beneficiaries/views/BeneficiariesView.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
     path: '/transfer-pix',
     name: 'transfer-pix',
     component: () => import('@/features/transfers/views/TransferPixView.vue'),
     meta: { requiresAuth: true },
   },
   {
-    path: '/beneficiaries',
-    name: 'beneficiaries',
-    component: () => import('@/features/beneficiaries/views/BeneficiariesView.vue'),
+    path: '/notifications',
+    name: 'notifications',
+    component: () => import('@/features/notifications/views/NotificationsView.vue'),
     meta: { requiresAuth: true },
   },
   {

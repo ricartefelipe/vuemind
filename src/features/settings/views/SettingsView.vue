@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
 import { applyTheme } from '@/app/theme/applyTheme'
 import { useSettingsStore, type Locale, type Theme } from '@/features/settings/stores/settingsStore'
+import { useAuthStore } from '@/features/auth/stores/authStore'
 import AppButton from '@/shared/ui/AppButton.vue'
 
 const { t, locale } = useI18n()
 const settings = useSettingsStore()
+const auth = useAuthStore()
+const router = useRouter()
 
 function selectTheme(theme: Theme): void {
   settings.setTheme(theme)
@@ -15,6 +19,11 @@ function selectTheme(theme: Theme): void {
 function selectLocale(next: Locale): void {
   settings.setLocale(next)
   locale.value = next
+}
+
+async function handleLogout(): Promise<void> {
+  auth.logout()
+  await router.push({ name: 'login' })
 }
 </script>
 
@@ -51,6 +60,13 @@ function selectLocale(next: Locale): void {
         @click="selectLocale('en')"
       >
         {{ t('settings.localeEn') }}
+      </AppButton>
+    </fieldset>
+
+    <fieldset class="settings-view__group">
+      <legend>{{ t('nav.logout') }}</legend>
+      <AppButton variant="secondary" data-testid="settings-logout" @click="handleLogout">
+        {{ t('settings.logout') }}
       </AppButton>
     </fieldset>
   </section>

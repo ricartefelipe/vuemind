@@ -2,13 +2,14 @@
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useBeneficiariesStore } from '@/features/beneficiaries/stores/beneficiariesStore'
+import type { CreatePixInput } from '@/features/transfers/types'
 import { formatCents } from '@/shared/utils/money'
 import AppButton from '@/shared/ui/AppButton.vue'
 
 const props = defineProps<{
-  beneficiaryId: string
-  amountCents: number
+  draft: CreatePixInput
   loading?: boolean
+  hasError?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -19,28 +20,40 @@ const emit = defineEmits<{
 const { t, locale } = useI18n()
 const beneficiaries = useBeneficiariesStore()
 
-const beneficiaryName = computed(() => {
-  const found = (beneficiaries.items ?? []).find((b) => b.id === props.beneficiaryId)
-  return found?.name ?? props.beneficiaryId
+const destinationLabel = computed(() => {
+  if (props.draft.beneficiaryId) {
+    const found = (beneficiaries.items ?? []).find((item) => item.id === props.draft.beneficiaryId)
+    return found?.name ?? props.draft.beneficiaryId
+  }
+  return props.draft.pixKey ?? ''
 })
 
-const amountLabel = computed(() => formatCents(props.amountCents, locale.value))
+const amountLabel = computed(() => formatCents(props.draft.amountCents, locale.value))
+const whenLabel = computed(() =>
+  props.draft.scheduledFor
+    ? new Date(props.draft.scheduledFor).toLocaleString(locale.value)
+    : t('transfers.confirm.now'),
+)
 </script>
 
 <template>
-  <div class="transfer-confirm">
+  <div class="transfer-confirm" data-testid="pix-confirm">
+    <h2>{{ t('transfers.steps.confirm') }}</h2>
     <p>
-      <strong>{{ t('transfers.confirm.to') }}:</strong> {{ beneficiaryName }}
+      <strong>{{ t('transfers.confirm.to') }}:</strong> {{ destinationLabel }}
     </p>
     <p>
       <strong>{{ t('transfers.confirm.amount') }}:</strong> {{ amountLabel }}
     </p>
+    <p>
+      <strong>{{ t('transfers.confirm.when') }}:</strong> {{ whenLabel }}
+    </p>
     <div class="transfer-confirm__actions">
       <AppButton variant="secondary" :disabled="loading" @click="emit('back')">
-        {{ t('common.cancel') }}
+        {{ t('common.back') }}
       </AppButton>
-      <AppButton :disabled="loading" @click="emit('confirm')">
-        {{ t('transfers.confirm.submit') }}
+      <AppButton :disabled="loading" data-testid="pix-confirm-submit" @click="emit('confirm')">
+        {{ hasError ? t('transfers.confirm.retry') : t('transfers.confirm.submit') }}
       </AppButton>
     </div>
   </div>
@@ -55,6 +68,11 @@ const amountLabel = computed(() => formatCents(props.amountCents, locale.value))
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
+}
+
+.transfer-confirm h2 {
+  margin: 0;
+  font-size: var(--font-size-lg);
 }
 
 .transfer-confirm__actions {
