@@ -18,22 +18,44 @@ const emit = defineEmits<{
 const { t, locale } = useI18n()
 const beneficiaries = useBeneficiariesStore()
 
-const beneficiaryName = computed(() => {
-  const found = (beneficiaries.items ?? []).find((b) => b.id === props.receipt.beneficiaryId)
-  return found?.name ?? props.receipt.beneficiaryId
+const destinationLabel = computed(() => {
+  if (props.receipt.beneficiaryId) {
+    const found = (beneficiaries.items ?? []).find((item) => item.id === props.receipt.beneficiaryId)
+    return found?.name ?? props.receipt.beneficiaryId
+  }
+  return props.receipt.pixKey ?? ''
 })
 </script>
 
 <template>
-  <div class="transfer-receipt">
+  <div class="transfer-receipt" data-testid="pix-receipt">
     <h2>{{ t('transfers.receipt.title') }}</h2>
     <p><strong>{{ t('transfers.receipt.id') }}:</strong> {{ receipt.id }}</p>
-    <p><strong>{{ t('transfers.confirm.to') }}:</strong> {{ beneficiaryName }}</p>
+    <p><strong>{{ t('transfers.confirm.to') }}:</strong> {{ destinationLabel }}</p>
     <p>
       <strong>{{ t('transfers.confirm.amount') }}:</strong>
       {{ formatCents(receipt.amountCents, locale) }}
     </p>
-    <p><strong>{{ t('transfers.receipt.when') }}:</strong> {{ new Date(receipt.createdAt).toLocaleString(locale) }}</p>
+    <p>
+      <strong>{{ t('transfers.receipt.status') }}:</strong>
+      {{ t(`transfers.status.${receipt.status}`) }}
+    </p>
+    <p>
+      <strong>{{ t('transfers.receipt.endToEnd') }}:</strong>
+      <span data-testid="pix-end-to-end">{{ receipt.endToEndId }}</span>
+    </p>
+    <p>
+      <strong>{{ t('transfers.receipt.when') }}:</strong>
+      {{ new Date(receipt.createdAt).toLocaleString(locale) }}
+    </p>
+    <p v-if="receipt.scheduledFor">
+      <strong>{{ t('transfers.receipt.scheduledFor') }}:</strong>
+      {{ new Date(receipt.scheduledFor).toLocaleString(locale) }}
+    </p>
+    <p>
+      <strong>{{ t('transfers.receipt.correlationId') }}:</strong>
+      {{ receipt.correlationId }}
+    </p>
     <div class="transfer-receipt__actions">
       <AppButton variant="secondary" @click="emit('again')">{{ t('transfers.receipt.again') }}</AppButton>
       <RouterLink :to="{ name: 'transactions' }">
