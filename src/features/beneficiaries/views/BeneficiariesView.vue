@@ -2,23 +2,28 @@
 import { onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useBeneficiariesStore } from '@/features/beneficiaries/stores/beneficiariesStore'
+import { useOnboardingStore } from '@/features/onboarding/stores/onboardingStore'
+import type { CreateBeneficiaryInput } from '@/features/beneficiaries/types'
 import BeneficiaryForm from '@/features/beneficiaries/components/BeneficiaryForm.vue'
 import BeneficiaryList from '@/features/beneficiaries/components/BeneficiaryList.vue'
-import LoadingBlock from '@/shared/ui/LoadingBlock.vue'
+import Skeleton from '@/shared/ui/Skeleton.vue'
 import ErrorBanner from '@/shared/ui/ErrorBanner.vue'
 import EmptyState from '@/shared/ui/EmptyState.vue'
 import AppButton from '@/shared/ui/AppButton.vue'
+import { ApiError } from '@/shared/http/errors'
 
 const { t } = useI18n()
 const store = useBeneficiariesStore()
+const onboarding = useOnboardingStore()
 
 onMounted(() => {
   store.load()
 })
 
-async function onCreate(payload: { name: string; pixKey: string }): Promise<void> {
+async function onCreate(payload: CreateBeneficiaryInput): Promise<void> {
   try {
     await store.create(payload)
+    await onboarding.load()
   } catch {
   }
 }
@@ -28,6 +33,10 @@ async function onRemove(id: string): Promise<void> {
     await store.remove(id)
   } catch {
   }
+}
+
+function correlationFrom(error: Error | null): string | undefined {
+  return error instanceof ApiError ? error.correlationId : undefined
 }
 </script>
 
@@ -40,13 +49,15 @@ async function onRemove(id: string): Promise<void> {
     <ErrorBanner
       v-if="store.mutateError"
       :message="store.mutateError.message || t('common.error')"
+      :correlation-id="correlationFrom(store.mutateError)"
     />
 
-    <LoadingBlock
-      v-if="store.loading || (store.items === null && !store.error)"
-      :label="t('common.loading')"
-    />
-    <ErrorBanner v-else-if="store.error" :message="store.error.message || t('common.error')">
+    <Skeleton v-if="store.loading || (store.items === null && !store.error)" :lines="4" />
+    <ErrorBanner
+      v-else-if="store.error"
+      :message="store.error.message || t('common.error')"
+      :correlation-id="correlationFrom(store.error)"
+    >
       <template #action>
         <AppButton variant="secondary" @click="store.load()">{{ t('common.retry') }}</AppButton>
       </template>

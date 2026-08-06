@@ -5,6 +5,7 @@ defineProps<{
   type?: string
   id?: string
   error?: string
+  disabled?: boolean
 }>()
 
 defineEmits<{
@@ -22,6 +23,7 @@ defineEmits<{
       class="app-input__field"
       :class="{ 'app-input__field--invalid': !!error }"
       :aria-invalid="!!error"
+      :disabled="disabled"
       @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
     />
     <p v-if="error" class="app-input__error">{{ error }}</p>

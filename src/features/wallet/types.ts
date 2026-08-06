@@ -14,6 +14,9 @@ export type Transaction = {
 
 export type WalletBalance = {
   availableCents: Cents
+  blockedCents: Cents
+  dailyLimitCents: Cents
+  dailySpentCents: Cents
   currency: string
 }
 
@@ -21,8 +24,14 @@ export type TransactionFilters = {
   from: string
   to: string
   type: TransactionTypeFilter
+  q: string
+  page: number
+  pageSize: number
 }
 
-export type TransactionsResponse = {
+export type TransactionsPage = {
   items: Transaction[]
+  page: number
+  pageSize: number
+  total: number
 }
