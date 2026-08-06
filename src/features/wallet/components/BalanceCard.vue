@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { formatCents } from '@/shared/utils/money'
+import { formatCents, toCents } from '@/shared/utils/money'
 
 const props = defineProps<{
   availableCents: number
@@ -18,8 +18,10 @@ const blocked = computed(() => formatCents(props.blockedCents, locale.value, pro
 const spent = computed(() => formatCents(props.dailySpentCents, locale.value, props.currency))
 const limit = computed(() => formatCents(props.dailyLimitCents, locale.value, props.currency))
 const limitPercent = computed(() => {
-  if (props.dailyLimitCents <= 0) return 0
-  return Math.min(100, Math.round((props.dailySpentCents / props.dailyLimitCents) * 100))
+  const dailyLimit = toCents(props.dailyLimitCents)
+  const dailySpent = toCents(props.dailySpentCents)
+  if (dailyLimit <= 0) return 0
+  return Math.min(100, Math.round((dailySpent / dailyLimit) * 100))
 })
 </script>
 
