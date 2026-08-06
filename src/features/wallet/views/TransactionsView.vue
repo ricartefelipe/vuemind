@@ -2,15 +2,18 @@
 import { onMounted, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useWalletStore } from '@/features/wallet/stores/walletStore'
+import { useOnboardingStore } from '@/features/onboarding/stores/onboardingStore'
 import type { TransactionTypeFilter } from '@/features/wallet/types'
 import { formatCents } from '@/shared/utils/money'
-import LoadingBlock from '@/shared/ui/LoadingBlock.vue'
+import Skeleton from '@/shared/ui/Skeleton.vue'
 import ErrorBanner from '@/shared/ui/ErrorBanner.vue'
 import EmptyState from '@/shared/ui/EmptyState.vue'
 import AppButton from '@/shared/ui/AppButton.vue'
+import { ApiError } from '@/shared/http/errors'
 
 const { t, locale } = useI18n()
 const wallet = useWalletStore()
+const onboarding = useOnboardingStore()
 
 const typeOptions: TransactionTypeFilter[] = ['ALL', 'PIX_OUT', 'PIX_IN', 'TED']
 
@@ -25,8 +28,17 @@ function signedAmount(cents: number, isCredit: boolean): string {
   return isCredit ? `+${formatted}` : `-${formatted}`
 }
 
+function correlationFrom(error: Error | null): string | undefined {
+  return error instanceof ApiError ? error.correlationId : undefined
+}
+
+async function applyFilters(): Promise<void> {
+  await wallet.loadTransactions()
+  await onboarding.load()
+}
+
 onMounted(() => {
-  wallet.loadTransactions()
+  applyFilters()
 })
 </script>
 
@@ -34,7 +46,7 @@ onMounted(() => {
   <section class="transactions-view">
     <h1>{{ t('wallet.transactions') }}</h1>
 
-    <form class="transactions-view__filters" @submit.prevent="wallet.loadTransactions()">
+    <form class="transactions-view__filters" @submit.prevent="applyFilters">
       <label class="transactions-view__field">
         <span>{{ t('wallet.filters.from') }}</span>
         <input v-model="wallet.filters.from" type="date" />
@@ -51,16 +63,29 @@ onMounted(() => {
           </option>
         </select>
       </label>
+      <label class="transactions-view__field transactions-view__field--grow">
+        <span>{{ t('wallet.filters.q') }}</span>
+        <input
+          v-model="wallet.filters.q"
+          type="search"
+          data-testid="transactions-search"
+          :placeholder="t('wallet.search')"
+        />
+      </label>
       <AppButton type="submit">{{ t('wallet.filters.apply') }}</AppButton>
     </form>
 
-    <LoadingBlock
+    <Skeleton
       v-if="wallet.transactionsLoading || (wallet.transactions === null && !wallet.transactionsError)"
-      :label="t('common.loading')"
+      :lines="5"
     />
-    <ErrorBanner v-else-if="wallet.transactionsError" :message="t('common.error')">
+    <ErrorBanner
+      v-else-if="wallet.transactionsError"
+      :message="wallet.transactionsError.message || t('common.error')"
+      :correlation-id="correlationFrom(wallet.transactionsError)"
+    >
       <template #action>
-        <AppButton variant="secondary" @click="wallet.loadTransactions()">{{ t('common.retry') }}</AppButton>
+        <AppButton variant="secondary" @click="applyFilters">{{ t('common.retry') }}</AppButton>
       </template>
     </ErrorBanner>
     <EmptyState
@@ -68,22 +93,33 @@ onMounted(() => {
       :title="t('wallet.empty.title')"
       :description="t('wallet.empty.description')"
     />
-    <ul v-else-if="wallet.transactions !== null" class="transactions-view__list">
-      <li v-for="transaction in wallet.transactions" :key="transaction.id" class="transactions-view__item">
-        <div class="transactions-view__info">
-          <span class="transactions-view__description">{{ transaction.description }}</span>
-          <span class="transactions-view__meta">
-            {{ transaction.counterparty }} · {{ formatDate(transaction.createdAt) }}
+    <template v-else-if="wallet.transactions !== null">
+      <ul class="transactions-view__list" data-testid="transactions-list">
+        <li v-for="transaction in wallet.transactions" :key="transaction.id" class="transactions-view__item">
+          <div class="transactions-view__info">
+            <span class="transactions-view__description">{{ transaction.description }}</span>
+            <span class="transactions-view__meta">
+              {{ transaction.counterparty }} · {{ formatDate(transaction.createdAt) }}
+            </span>
+          </div>
+          <span
+            class="transactions-view__amount"
+            :class="{ 'transactions-view__amount--credit': transaction.type === 'PIX_IN' }"
+          >
+            {{ signedAmount(transaction.amountCents, transaction.type === 'PIX_IN') }}
           </span>
-        </div>
-        <span
-          class="transactions-view__amount"
-          :class="{ 'transactions-view__amount--credit': transaction.type === 'PIX_IN' }"
-        >
-          {{ signedAmount(transaction.amountCents, transaction.type === 'PIX_IN') }}
-        </span>
-      </li>
-    </ul>
+        </li>
+      </ul>
+      <AppButton
+        v-if="wallet.hasMore"
+        variant="secondary"
+        :disabled="wallet.transactionsLoadingMore"
+        data-testid="transactions-load-more"
+        @click="wallet.loadMoreTransactions()"
+      >
+        {{ t('wallet.loadMore') }}
+      </AppButton>
+    </template>
   </section>
 </template>
 
@@ -107,6 +143,11 @@ onMounted(() => {
   gap: var(--space-1);
   font-size: var(--font-size-sm);
   color: var(--color-text-muted);
+}
+
+.transactions-view__field--grow {
+  flex: 1;
+  min-width: 180px;
 }
 
 .transactions-view__field input,

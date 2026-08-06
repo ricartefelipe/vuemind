@@ -16,11 +16,11 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <ul class="beneficiary-list">
+  <ul class="beneficiary-list" data-testid="beneficiary-list">
     <li v-for="item in items" :key="item.id" class="beneficiary-list__item">
       <div>
         <strong>{{ item.name }}</strong>
-        <p>{{ item.pixKey }}</p>
+        <p>{{ t(`beneficiaries.types.${item.pixKeyType}`) }} · {{ item.pixKey }}</p>
       </div>
       <AppButton variant="ghost" :disabled="busy" @click="emit('remove', item.id)">
         {{ t('beneficiaries.remove') }}

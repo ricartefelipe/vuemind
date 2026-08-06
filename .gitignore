@@ -32,3 +32,6 @@ Thumbs.db
 .superpowers/
 AGENTS.md
 PROMPT-EVOLUCAO.md
+
+test-results/
+playwright-report/
