@@ -1,5 +1,9 @@
 import { http } from '@/shared/http/client'
 import type { TransactionFilters, TransactionsPage, WalletBalance } from '@/features/wallet/types'
+import {
+  normalizeTransactionsPage,
+  normalizeWalletBalance,
+} from '@/features/wallet/api/normalizeWallet'
 
 function buildTransactionsQuery(filters: TransactionFilters): string {
   const params = new URLSearchParams()
@@ -15,7 +19,14 @@ function buildTransactionsQuery(filters: TransactionFilters): string {
 }
 
 export const walletApi = {
-  getBalance: (): Promise<WalletBalance> => http.get<WalletBalance>('/wallet/balance'),
-  listTransactions: (filters: TransactionFilters): Promise<TransactionsPage> =>
-    http.get<TransactionsPage>(`/wallet/transactions${buildTransactionsQuery(filters)}`),
+  getBalance: async (): Promise<WalletBalance> =>
+    normalizeWalletBalance(await http.get<Partial<WalletBalance>>('/wallet/balance')),
+  listTransactions: async (filters: TransactionFilters): Promise<TransactionsPage> =>
+    normalizeTransactionsPage(
+      await http.get<Partial<TransactionsPage>>(
+        `/wallet/transactions${buildTransactionsQuery(filters)}`,
+      ),
+      filters.page,
+      filters.pageSize,
+    ),
 }
