@@ -4,7 +4,13 @@ import { getDb } from '@/mocks/data/db'
 export const walletHandlers = [
   http.get('*/api/v1/wallet/balance', () => {
     const db = getDb()
-    return HttpResponse.json({ availableCents: db.availableCents, currency: 'BRL' })
+    return HttpResponse.json({
+      availableCents: db.availableCents,
+      blockedCents: db.blockedCents,
+      dailyLimitCents: db.dailyLimitCents,
+      dailySpentCents: db.dailySpentCents,
+      currency: 'BRL',
+    })
   }),
 
   http.get('*/api/v1/wallet/transactions', ({ request }) => {
@@ -21,6 +27,11 @@ export const walletHandlers = [
       return true
     })
 
-    return HttpResponse.json({ items })
+    return HttpResponse.json({
+      items,
+      page: 1,
+      pageSize: items.length || 20,
+      total: items.length,
+    })
   }),
 ]

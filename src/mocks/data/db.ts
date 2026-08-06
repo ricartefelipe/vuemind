@@ -31,6 +31,9 @@ export type Transfer = {
 export type Db = {
   user: MockUser
   availableCents: number
+  blockedCents: number
+  dailyLimitCents: number
+  dailySpentCents: number
   beneficiaries: Beneficiary[]
   transactions: Transaction[]
   transfers: Transfer[]
@@ -45,6 +48,9 @@ const seed = (): Db => ({
     password: 'demo123',
   },
   availableCents: 250_000,
+  blockedCents: 10_000,
+  dailyLimitCents: 100_000,
+  dailySpentCents: 0,
   beneficiaries: [
     { id: 'b1', name: 'Ana Silva', pixKey: 'ana@email.com' },
     { id: 'b2', name: 'Mercado Central', pixKey: '11222333000181' },
