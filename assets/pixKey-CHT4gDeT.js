@@ -1,0 +1,1 @@
+const e=/^[^\s@]+@[^\s@]+\.[^\s@]+$/,a=/^\d{11}$/,r=/^\+?\d{10,13}$/,n=/^[0-9a-fA-F]{32}$/;function i(s,t){switch(s){case"EMAIL":return e.test(t);case"CPF":return a.test(t);case"PHONE":return r.test(t);case"RANDOM":return n.test(t);default:return s}}function o(s,t){if(!i(s,t))throw new Error(`INVALID_PIX_KEY: chave PIX inválida para o tipo ${s}.`)}export{o as a};
