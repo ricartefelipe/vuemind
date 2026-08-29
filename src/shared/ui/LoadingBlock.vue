@@ -5,10 +5,10 @@ defineProps<{
 </script>
 
 <template>
-  <div class="loading-block" role="status">
+  <output class="loading-block">
     <span class="loading-block__spinner" aria-hidden="true" />
     <span v-if="label" class="loading-block__label">{{ label }}</span>
-  </div>
+  </output>
 </template>
 
 <style scoped>

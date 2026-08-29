@@ -114,7 +114,7 @@ watch(
           role="menu"
           data-testid="shell-user-menu"
         >
-          <div class="app-shell__menu-profile" role="none">
+          <div class="app-shell__menu-profile">
             <p class="app-shell__menu-label">{{ t('account.profile') }}</p>
             <p class="app-shell__menu-name">{{ auth.user?.name }}</p>
             <p class="app-shell__menu-email">{{ auth.user?.email }}</p>
