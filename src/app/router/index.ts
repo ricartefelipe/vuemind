@@ -50,6 +50,12 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/features/settings/views/SettingsView.vue'),
     meta: { requiresAuth: true },
   },
+  {
+    path: '/arquivo',
+    name: 'archive',
+    component: () => import('@/features/archive/views/ArchiveView.vue'),
+    meta: { requiresAuth: true },
+  },
 ]
 
 export const router = createRouter({
