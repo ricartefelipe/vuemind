@@ -1,22 +1,20 @@
-import type { Cents } from '@/shared/utils/money'
-
 export type TransactionType = 'PIX_OUT' | 'PIX_IN' | 'TED'
 export type TransactionTypeFilter = 'ALL' | TransactionType
 
 export type Transaction = {
   id: string
   type: TransactionType
-  amountCents: Cents
+  amountCents: number
   description: string
   createdAt: string
   counterparty: string
 }
 
 export type WalletBalance = {
-  availableCents: Cents
-  blockedCents: Cents
-  dailyLimitCents: Cents
-  dailySpentCents: Cents
+  availableCents: number
+  blockedCents: number
+  dailyLimitCents: number
+  dailySpentCents: number
   currency: string
 }
 
