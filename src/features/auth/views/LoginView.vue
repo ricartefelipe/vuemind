@@ -138,8 +138,7 @@ async function handleSubmit(): Promise<void> {
   border-radius: 999px;
   background: linear-gradient(135deg, var(--color-primary), var(--color-cta-end));
   color: var(--login-cta-text);
-  font-weight: 600;
-  font: inherit;
+  font: 600 1rem/1.2 inherit;
   cursor: pointer;
 }
 .login-form button:disabled { opacity: 0.6; cursor: not-allowed; }

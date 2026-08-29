@@ -47,9 +47,12 @@ const limitPercent = computed(() => {
         <span>{{ t('wallet.dailyLimit') }}</span>
         <span>{{ spent }} / {{ limit }}</span>
       </div>
-      <div class="balance-card__track" role="progressbar" :aria-valuenow="limitPercent" aria-valuemin="0" aria-valuemax="100">
-        <div class="balance-card__fill" :style="{ width: `${limitPercent}%` }" />
-      </div>
+      <progress
+        class="balance-card__track"
+        :value="limitPercent"
+        max="100"
+        :aria-label="t('wallet.dailyLimit')"
+      />
     </div>
   </div>
 </template>
@@ -124,10 +127,29 @@ const limitPercent = computed(() => {
 }
 
 .balance-card__track {
+  width: 100%;
   height: 0.55rem;
   border-radius: 999px;
-  background: color-mix(in srgb, white 22%, transparent);
   overflow: hidden;
+  appearance: none;
+  border: none;
+  background: color-mix(in srgb, white 22%, transparent);
+}
+
+.balance-card__track::-webkit-progress-bar {
+  border-radius: 999px;
+  background: color-mix(in srgb, white 22%, transparent);
+}
+
+.balance-card__track::-webkit-progress-value {
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--color-accent), white);
+  transition: width var(--motion-fast);
+}
+
+.balance-card__track::-moz-progress-bar {
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--color-accent), white);
 }
 
 .balance-card__fill {
