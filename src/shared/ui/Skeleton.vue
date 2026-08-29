@@ -5,7 +5,7 @@ defineProps<{
 </script>
 
 <template>
-  <div class="skeleton" role="status" aria-busy="true" data-testid="skeleton">
+  <div class="skeleton" aria-busy="true" data-testid="skeleton">
     <div
       v-for="index in lines ?? 3"
       :key="index"

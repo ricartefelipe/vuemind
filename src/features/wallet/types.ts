@@ -1,4 +1,4 @@
-import type { Cents } from '@/shared/types/money'
+import type { Cents } from '@/shared/utils/money'
 
 export type TransactionType = 'PIX_OUT' | 'PIX_IN' | 'TED'
 export type TransactionTypeFilter = 'ALL' | TransactionType
