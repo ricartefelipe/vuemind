@@ -82,6 +82,7 @@ watch(
         <RouterLink :to="{ name: 'transactions' }" class="app-shell__link">{{ t('nav.transactions') }}</RouterLink>
         <RouterLink :to="{ name: 'beneficiaries' }" class="app-shell__link">{{ t('nav.beneficiaries') }}</RouterLink>
         <RouterLink :to="{ name: 'transfer-pix' }" class="app-shell__link">{{ t('nav.transferPix') }}</RouterLink>
+        <RouterLink :to="{ name: 'archive' }" class="app-shell__link">{{ t('nav.archive') }}</RouterLink>
         <RouterLink :to="{ name: 'notifications' }" class="app-shell__link app-shell__link--badge">
           {{ t('nav.notifications') }}
           <span
