@@ -379,5 +379,5 @@ watch([workspaceId, tab], ([id]) => {
 </template>
 
 <style scoped>
-@import './archive.css';
+@import '../archive.css';
 </style>

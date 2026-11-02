@@ -6,6 +6,10 @@ import { fileURLToPath, URL } from 'node:url'
 export default defineConfig({
   base: process.env.VITE_BASE || '/',
   plugins: [vue()],
+  build: {
+    // main.ts usa await no topo para carregar o MSW sob demanda.
+    target: 'es2022',
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
