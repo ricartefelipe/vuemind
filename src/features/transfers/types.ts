@@ -11,8 +11,9 @@ export type PixTransfer = {
   status: TransferStatus
   createdAt: string
   scheduledFor?: string
-  endToEndId: string
-  correlationId: string
+  /** Identificador do PIX (simulado). Ausente em transferências feitas antes de a API passar a gerá-lo. */
+  endToEndId?: string
+  correlationId?: string
 }
 
 export type CreatePixInput = {
