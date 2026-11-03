@@ -26,6 +26,8 @@ export type Transfer = {
   amountCents: number
   status: 'COMPLETED'
   createdAt: string
+  endToEndId: string
+  correlationId: string
 }
 
 export type Db = {

@@ -101,6 +101,8 @@ export default {
       when: 'Date',
       scheduledFor: 'Scheduled for',
       correlationId: 'Correlation ID',
+      notAvailable: 'Not available',
+      simulated: 'Simulated PIX: no money was transferred. The end-to-end ID uses a fictitious demo ISPB.',
       again: 'New transfer',
     },
     qr: {

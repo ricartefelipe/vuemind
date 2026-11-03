@@ -1,6 +1,7 @@
 import { http, HttpResponse } from 'msw'
 import type { Db, Transfer } from '@/mocks/data/db'
 import { getDb } from '@/mocks/data/db'
+import { createEndToEndId } from '@/mocks/data/endToEndId'
 import { createCorrelationId } from '@/shared/utils/id'
 import type { ApiErrorBody } from '@/shared/types/api'
 
@@ -8,6 +9,16 @@ export type ExecutePixInput = {
   beneficiaryId: string
   amountCents: number
   idempotencyKey: string
+  correlationId?: string
+}
+
+/** O código é gerado na confirmação; um novo sorteio cobre a colisão, improvável, com um já emitido. */
+function uniqueEndToEndId(db: Db, date: Date): string {
+  let id = createEndToEndId(date)
+  while (db.transfers.some((item) => item.endToEndId === id)) {
+    id = createEndToEndId(date)
+  }
+  return id
 }
 
 export function executePix(db: Db, input: ExecutePixInput): Transfer {
@@ -27,12 +38,15 @@ export function executePix(db: Db, input: ExecutePixInput): Transfer {
 
   db.availableCents -= input.amountCents
 
+  const now = new Date()
   const transfer: Transfer = {
     id: crypto.randomUUID(),
     beneficiaryId: input.beneficiaryId,
     amountCents: input.amountCents,
     status: 'COMPLETED',
-    createdAt: new Date().toISOString(),
+    createdAt: now.toISOString(),
+    endToEndId: uniqueEndToEndId(db, now),
+    correlationId: input.correlationId ?? createCorrelationId(),
   }
   db.transfers.push(transfer)
   db.transactions.unshift({
@@ -76,7 +90,7 @@ export const transfersHandlers = [
     const body = (await request.json()) as { beneficiaryId: string; amountCents: number }
 
     try {
-      const transfer = executePix(db, { ...body, idempotencyKey })
+      const transfer = executePix(db, { ...body, idempotencyKey, correlationId })
       return HttpResponse.json(transfer, { status: 201 })
     } catch (error) {
       const code = error instanceof Error ? error.message : 'UNKNOWN_ERROR'
