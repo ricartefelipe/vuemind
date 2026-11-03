@@ -41,8 +41,9 @@ const destinationLabel = computed(() => {
       {{ t(`transfers.status.${receipt.status}`) }}
     </p>
     <p>
-      <strong>{{ t('transfers.receipt.endToEnd') }}:</strong>
-      <span data-testid="pix-end-to-end">{{ receipt.endToEndId }}</span>
+      <strong>{{ t('transfers.receipt.endToEnd') }}:</strong> <span data-testid="pix-end-to-end" class="transfer-receipt__code">{{
+        receipt.endToEndId || t('transfers.receipt.notAvailable')
+      }}</span>
     </p>
     <p>
       <strong>{{ t('transfers.receipt.when') }}:</strong>
@@ -53,9 +54,11 @@ const destinationLabel = computed(() => {
       {{ new Date(receipt.scheduledFor).toLocaleString(locale) }}
     </p>
     <p>
-      <strong>{{ t('transfers.receipt.correlationId') }}:</strong>
-      {{ receipt.correlationId }}
+      <strong>{{ t('transfers.receipt.correlationId') }}:</strong> <span data-testid="pix-correlation-id" class="transfer-receipt__code">{{
+        receipt.correlationId || t('transfers.receipt.notAvailable')
+      }}</span>
     </p>
+    <p class="transfer-receipt__note" data-testid="pix-simulated-note">{{ t('transfers.receipt.simulated') }}</p>
     <div class="transfer-receipt__actions">
       <AppButton variant="secondary" @click="emit('again')">{{ t('transfers.receipt.again') }}</AppButton>
       <RouterLink :to="{ name: 'transactions' }">
@@ -79,6 +82,16 @@ const destinationLabel = computed(() => {
 .transfer-receipt h2 {
   margin: 0 0 var(--space-2);
   font-family: var(--font-display);
+}
+
+.transfer-receipt__code {
+  overflow-wrap: anywhere;
+}
+
+.transfer-receipt__note {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
 }
 
 .transfer-receipt__actions {
