@@ -69,11 +69,11 @@ const limitPercent = computed(() => {
   background:
     linear-gradient(
       145deg,
-      var(--color-primary) 0%,
-      var(--color-primary-strong) 55%,
-      var(--color-hero-deep) 100%
+      var(--color-balance-from) 0%,
+      var(--color-balance-mid) 55%,
+      var(--color-balance-to) 100%
     );
-  color: var(--color-text-inverse);
+  color: var(--color-balance-text);
   box-shadow: var(--shadow-glow);
 }
 
@@ -84,7 +84,7 @@ const limitPercent = computed(() => {
   right: -40px;
   top: -60px;
   border-radius: 50%;
-  background: radial-gradient(circle, color-mix(in srgb, var(--color-accent) 55%, transparent), transparent 68%);
+  background: radial-gradient(circle, color-mix(in srgb, var(--color-balance-glow) 55%, transparent), transparent 68%);
 }
 
 .balance-card__primary,
@@ -100,7 +100,7 @@ const limitPercent = computed(() => {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   font-weight: 600;
-  color: color-mix(in srgb, var(--color-accent) 80%, white);
+  color: var(--color-balance-label);
   margin-bottom: 0.35rem;
 }
 

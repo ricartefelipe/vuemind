@@ -45,13 +45,13 @@ withDefaults(
 }
 
 .app-button--primary {
-  background-color: var(--color-primary);
+  background-color: var(--color-primary-action);
   color: var(--color-text-inverse);
   box-shadow: var(--shadow-sm);
 }
 
 .app-button--primary:hover:not(:disabled) {
-  background-color: var(--color-primary-strong);
+  background-color: var(--color-primary-action-hover);
   transform: translateY(-1px);
 }
 
