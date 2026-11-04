@@ -42,7 +42,8 @@ const destinationLabel = computed(() => {
     </p>
     <p>
       <strong>{{ t('transfers.receipt.endToEnd') }}:</strong> <span data-testid="pix-end-to-end" class="transfer-receipt__code">{{
-        receipt.endToEndId || t('transfers.receipt.notAvailable')
+        receipt.endToEndId ||
+        (receipt.status === 'SCHEDULED' ? t('transfers.receipt.endToEndPending') : t('transfers.receipt.notAvailable'))
       }}</span>
     </p>
     <p>

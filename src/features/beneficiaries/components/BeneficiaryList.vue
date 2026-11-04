@@ -18,7 +18,7 @@ const { t } = useI18n()
 <template>
   <ul class="beneficiary-list" data-testid="beneficiary-list">
     <li v-for="item in items" :key="item.id" class="beneficiary-list__item">
-      <div>
+      <div class="beneficiary-list__info">
         <strong>{{ item.name }}</strong>
         <p>{{ t(`beneficiaries.types.${item.pixKeyType}`) }} · {{ item.pixKey }}</p>
       </div>
@@ -50,8 +50,18 @@ const { t } = useI18n()
   border-radius: var(--radius-md);
 }
 
+.beneficiary-list__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.beneficiary-list__item :deep(button) {
+  flex-shrink: 0;
+}
+
 .beneficiary-list__item p {
   margin: 0.15rem 0 0;
+  overflow-wrap: anywhere;
   color: var(--color-text-muted);
   font-size: var(--font-size-sm);
 }

@@ -38,18 +38,29 @@
   --color-text-inverse: #f3fbf7;
 
   --color-primary: #2f9f6e;
-  --color-primary-strong: #217a54;
+  --color-primary-strong: #1e7350;
   --color-primary-soft: #d4f0e3;
   --color-hero-deep: #0d3d2a;
   --color-cta-end: #1a6646;
+  /* Botão principal: fundo que mantém 4,5:1 com o texto do botão. */
+  --color-primary-action: #1e7350;
+  --color-primary-action-hover: #165a3e;
 
   --color-accent: #35495e;
   --color-accent-strong: #273849;
   --color-accent-soft: #e4eaf0;
 
-  --color-success: #2f9f6e;
+  --color-success: #1b7550;
   --color-danger: #b33a32;
   --color-danger-soft: #f6dfdb;
+
+  /* Cartão de saldo: fundo escuro fixo para o texto claro manter 4,5:1 em todo o degradê. */
+  --color-balance-from: #1c6e4c;
+  --color-balance-mid: #165a3e;
+  --color-balance-to: #0d3d2a;
+  --color-balance-text: #f3fbf7;
+  --color-balance-label: #c9ecdb;
+  --color-balance-glow: #35495e;
 
   --shadow-sm: 0 1px 2px rgba(33, 122, 84, 0.08);
   --shadow-md: 0 12px 40px rgba(33, 122, 84, 0.14);
@@ -81,14 +92,23 @@
   --color-primary-soft: #1a3d2d;
   --color-hero-deep: #061a12;
   --color-cta-end: #2f9f6e;
+  --color-primary-action: #42b883;
+  --color-primary-action-hover: #68d4a4;
 
   --color-accent: #8aa4bd;
   --color-accent-strong: #b3c6d8;
   --color-accent-soft: #243040;
 
   --color-success: #42b883;
-  --color-danger: #e0685c;
+  --color-danger: #f39a90;
   --color-danger-soft: #3a2320;
+
+  --color-balance-from: #1c6a49;
+  --color-balance-mid: #11482f;
+  --color-balance-to: #061a12;
+  --color-balance-text: #f3fbf7;
+  --color-balance-label: #c9ecdb;
+  --color-balance-glow: #0d3d2a;
 
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
   --shadow-md: 0 16px 48px rgba(0, 0, 0, 0.45);

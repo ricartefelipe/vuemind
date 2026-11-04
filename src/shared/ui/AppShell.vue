@@ -1,16 +1,25 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
-import { RouterLink, RouterView, useRouter } from 'vue-router'
+import { RouterLink, RouterView, useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useAuthStore } from '@/features/auth/stores/authStore'
 import { useNotificationsStore } from '@/features/notifications/stores/notificationsStore'
 
 const { t } = useI18n()
 const router = useRouter()
+const route = useRoute()
 const auth = useAuthStore()
 const notifications = useNotificationsStore()
 const menuOpen = ref(false)
 const menuRoot = ref<HTMLElement | null>(null)
+const navToggle = ref<HTMLButtonElement | null>(null)
+// A navegação recolhida fica aberta só na página em que foi aberta: trocar de página a fecha.
+const navOpenAt = ref<string | null>(null)
+const navOpen = computed(() => navOpenAt.value === route.path)
+
+function toggleNav() {
+  navOpenAt.value = navOpen.value ? null : route.path
+}
 
 const initials = computed(() => {
   const name = auth.user?.name?.trim() ?? ''
@@ -47,7 +56,12 @@ function onDocumentClick(event: MouseEvent) {
 }
 
 function onDocumentKeydown(event: KeyboardEvent) {
-  if (event.key === 'Escape') closeMenu()
+  if (event.key !== 'Escape') return
+  closeMenu()
+  if (navOpen.value) {
+    navOpenAt.value = null
+    navToggle.value?.focus()
+  }
 }
 
 onMounted(() => {
@@ -77,7 +91,24 @@ watch(
         <span class="app-shell__mark" aria-hidden="true" />
         <span>{{ t('app.name') }}</span>
       </RouterLink>
-      <nav class="app-shell__nav" aria-label="Principal">
+      <button
+        ref="navToggle"
+        type="button"
+        class="app-shell__nav-toggle"
+        data-testid="shell-nav-toggle"
+        :aria-expanded="navOpen"
+        aria-controls="shell-nav"
+        @click="toggleNav"
+      >
+        <span class="app-shell__nav-toggle-icon" aria-hidden="true" />
+        {{ t('nav.menu') }}
+      </button>
+      <nav
+        id="shell-nav"
+        class="app-shell__nav"
+        :class="{ 'app-shell__nav--open': navOpen }"
+        aria-label="Principal"
+      >
         <RouterLink :to="{ name: 'dashboard' }" class="app-shell__link">{{ t('nav.dashboard') }}</RouterLink>
         <RouterLink :to="{ name: 'transactions' }" class="app-shell__link">{{ t('nav.transactions') }}</RouterLink>
         <RouterLink :to="{ name: 'beneficiaries' }" class="app-shell__link">{{ t('nav.beneficiaries') }}</RouterLink>
@@ -176,6 +207,7 @@ watch(
 .app-shell__brand {
   display: inline-flex;
   align-items: center;
+  min-height: 2.75rem;
   gap: var(--space-2);
   font-family: var(--font-display);
   font-size: var(--font-size-lg);
@@ -202,11 +234,16 @@ watch(
 
 .app-shell__link {
   position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  min-width: 2.75rem;
   font-size: var(--font-size-sm);
   font-weight: 500;
   color: var(--color-text-muted);
   text-decoration: none;
-  padding: 0.35rem 0.55rem;
+  padding: 0 0.6rem;
   border-radius: 999px;
   transition: color var(--motion-fast), background var(--motion-fast);
 }
@@ -249,6 +286,8 @@ watch(
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
+  min-height: 2.75rem;
+  min-width: 2.75rem;
   color: var(--color-text);
   background: transparent;
   border: 0;
@@ -327,6 +366,7 @@ watch(
 
 .app-shell__menu-item {
   width: 100%;
+  min-height: 2.75rem;
   text-align: left;
   border: 0;
   background: transparent;
@@ -355,19 +395,88 @@ watch(
   padding: var(--space-6) var(--space-5) var(--space-7);
 }
 
-@media (max-width: 860px) {
+.app-shell__link:focus-visible,
+.app-shell__brand:focus-visible,
+.app-shell__nav-toggle:focus-visible,
+.app-shell__user:focus-visible,
+.app-shell__menu-item:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--color-primary) 45%, transparent);
+  outline-offset: 2px;
+}
+
+/* O botão de menu só aparece quando os links não cabem numa linha; acima disso a navegação fica sempre visível. */
+.app-shell__nav-toggle {
+  display: none;
+}
+
+.app-shell__nav-toggle-icon {
+  width: 1rem;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  box-shadow:
+    0 -5px 0 currentColor,
+    0 5px 0 currentColor;
+}
+
+@media (max-width: 80rem) {
+  .app-shell__username {
+    display: none;
+  }
+}
+
+@media (max-width: 63.98rem) {
   .app-shell__header {
-    flex-direction: column;
-    align-items: flex-start;
+    padding: var(--space-2) var(--space-4);
+  }
+
+  .app-shell__nav-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-height: 2.75rem;
+    margin-left: auto;
+    padding: 0 0.95rem;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background: var(--color-surface);
+    color: var(--color-text);
+    font: inherit;
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .app-shell__nav-toggle[aria-expanded='true'] {
+    border-color: var(--color-primary);
+    color: var(--color-primary-strong);
   }
 
   .app-shell__nav {
-    width: 100%;
-    justify-content: flex-start;
+    display: none;
   }
 
-  .app-shell__user-menu {
-    align-self: flex-end;
+  .app-shell__nav--open {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    gap: 0.25rem;
+    padding: var(--space-2) var(--space-4) var(--space-3);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-border) 70%, transparent);
+    background: var(--color-surface-elevated);
+    box-shadow: 0 12px 24px color-mix(in srgb, #000 12%, transparent);
+  }
+
+  .app-shell__nav--open .app-shell__link {
+    width: 100%;
+    justify-content: flex-start;
+    padding: 0 var(--space-3);
+    border-radius: 0.75rem;
   }
 }
 </style>

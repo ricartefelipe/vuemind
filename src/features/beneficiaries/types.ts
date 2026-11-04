@@ -1,4 +1,4 @@
-export type PixKeyType = 'EMAIL' | 'CPF' | 'PHONE' | 'RANDOM'
+export type PixKeyType = 'EMAIL' | 'CPF' | 'CNPJ' | 'PHONE' | 'RANDOM'
 
 export type Beneficiary = {
   id: string
