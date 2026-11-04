@@ -18,7 +18,7 @@ const beneficiaryId = ref('')
 const pixKey = ref('')
 const pixKeyType = ref<PixKeyType>('EMAIL')
 const error = ref('')
-const pixKeyTypes: PixKeyType[] = ['EMAIL', 'CPF', 'PHONE', 'RANDOM']
+const pixKeyTypes: PixKeyType[] = ['EMAIL', 'CPF', 'CNPJ', 'PHONE', 'RANDOM']
 
 onMounted(() => {
   if (beneficiaries.items === null) beneficiaries.load()

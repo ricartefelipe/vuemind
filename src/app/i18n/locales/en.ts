@@ -146,6 +146,7 @@ export default {
       EMAIL: 'Email',
       CPF: 'CPF',
       PHONE: 'Phone',
+      CNPJ: 'CNPJ',
       RANDOM: 'Random',
     },
     validation: {
