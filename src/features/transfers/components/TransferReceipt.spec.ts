@@ -44,6 +44,12 @@ describe('TransferReceipt', () => {
     expect(wrapper.get('[data-testid="pix-correlation-id"]').text()).toBe('Não disponível')
   })
 
+  it('agendado explica quando o end-to-end é gerado', () => {
+    const wrapper = render({ ...base, status: 'SCHEDULED', scheduledFor: '2026-11-04T15:00:00Z' })
+
+    expect(wrapper.get('[data-testid="pix-end-to-end"]').text()).toBe('Gerado quando o PIX for executado')
+  })
+
   it('avisa que o PIX é simulado', () => {
     expect(render(base).get('[data-testid="pix-simulated-note"]').text()).toContain('PIX simulado')
   })
