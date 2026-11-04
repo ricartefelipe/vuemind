@@ -28,6 +28,8 @@ export default defineConfig({
     environment: 'happy-dom',
     globals: true,
     setupFiles: ['./src/test/setup.ts'],
+    // O teste de contraste lê os tokens como texto (?raw); o restante do CSS segue ignorado nos testes.
+    css: { include: [/tokens\.css/] },
     exclude: ['**/node_modules/**', '**/dist/**', '**/e2e/**'],
   },
 })
