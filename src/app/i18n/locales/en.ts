@@ -3,6 +3,7 @@ export default {
     name: 'VueMind',
   },
   nav: {
+    menu: 'Menu',
     dashboard: 'Home',
     transactions: 'Activity',
     transferPix: 'PIX',
