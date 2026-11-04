@@ -141,6 +141,7 @@ export default {
     types: {
       EMAIL: 'E-mail',
       CPF: 'CPF',
+      CNPJ: 'CNPJ',
       PHONE: 'Telefone',
       RANDOM: 'Aleatória',
     },

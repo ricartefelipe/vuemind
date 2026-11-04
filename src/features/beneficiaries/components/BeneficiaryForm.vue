@@ -21,7 +21,7 @@ const pixKeyType = ref<PixKeyType>('EMAIL')
 const nameError = ref('')
 const pixKeyError = ref('')
 
-const pixKeyTypes: PixKeyType[] = ['EMAIL', 'CPF', 'PHONE', 'RANDOM']
+const pixKeyTypes: PixKeyType[] = ['EMAIL', 'CPF', 'CNPJ', 'PHONE', 'RANDOM']
 const canSubmit = computed(() => !props.loading)
 
 function onSubmit(): void {
