@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vuemind/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VueMind</title>
+    <script>
+      try {
+        var raw = localStorage.getItem('settings')
+        if (raw) {
+          var parsed = JSON.parse(raw)
+          if (parsed.theme === 'dark' || parsed.theme === 'light') {
+            document.documentElement.dataset.theme = parsed.theme
+          }
+        }
+      } catch {
+        /* localStorage indisponível ou JSON inválido */
+      }
+    </script>
+    <script type="module" crossorigin src="/vuemind/assets/index-EFpsH2vs.js"></script>
+    <link rel="modulepreload" crossorigin href="/vuemind/assets/_plugin-vue_export-helper-x69I5WaG.js">
+    <link rel="modulepreload" crossorigin href="/vuemind/assets/runtime-dom.esm-bundler-CVc6xplx.js">
+    <link rel="modulepreload" crossorigin href="/vuemind/assets/client-Bum_zmdx.js">
+    <link rel="modulepreload" crossorigin href="/vuemind/assets/vue-router-BQwL062M.js">
+    <link rel="modulepreload" crossorigin href="/vuemind/assets/authStore-BSaVb2SE.js">
+    <link rel="modulepreload" crossorigin href="/vuemind/assets/useAsyncState-DWLfrm06.js">
+    <link rel="modulepreload" crossorigin href="/vuemind/assets/notificationsStore-Dw7Oguos.js">
+    <link rel="modulepreload" crossorigin href="/vuemind/assets/settingsStore-uXzR2IRY.js">
+    <link rel="stylesheet" crossorigin href="/vuemind/assets/index-DbRbIQLV.css">
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+</html>

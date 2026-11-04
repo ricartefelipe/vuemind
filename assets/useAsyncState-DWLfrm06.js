@@ -1,0 +1,1 @@
+import{r as e}from"./_plugin-vue_export-helper-x69I5WaG.js";function s(){const l=e(null),a=e(null),n=e(!1);async function r(u){n.value=!0,a.value=null;try{const t=await u();return l.value=t,t}catch(t){throw a.value=t,t}finally{n.value=!1}}return{data:l,error:a,loading:n,run:r}}export{s as u};

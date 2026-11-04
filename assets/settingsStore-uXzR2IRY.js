@@ -1,0 +1,1 @@
+import{d as t}from"./client-Bum_zmdx.js";function o(e){document.documentElement.dataset.theme=e}const a=t("settings",{state:()=>({theme:"light",locale:"pt-BR"}),actions:{setTheme(e){this.theme=e},setLocale(e){this.locale=e}},persist:{pick:["theme","locale"]}});export{o as a,a as u};
